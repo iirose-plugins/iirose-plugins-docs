@@ -1,0 +1,135 @@
+[
+    {
+        "text": "指南",
+        "items": [
+            {
+                "text": "项目介绍",
+                "link": "/"
+            },
+            {
+                "text": "前置安装",
+                "link": "/markdown/firstime/koishi"
+            },
+            {
+                "text": "快速开始",
+                "link": "/markdown/firstime/start"
+            },
+            {
+                "text": "图床支持",
+                "link": "/markdown/firstime/assets"
+            }
+        ]
+    },
+    {
+        "text": "说明",
+        "items": [
+            {
+                "text": "配置指南",
+                "link": "/markdown/start/config"
+            },
+            {
+                "text": "常见问题",
+                "link": "/markdown/start/FAQ"
+            },
+            {
+                "text": "获取帮助",
+                "link": "/markdown/start/issues"
+            },
+            {
+                "text": "错误码表",
+                "link": "/markdown/start/errorcodes"
+            }
+        ]
+    },
+    {
+        "text": "文档",
+        "items": [
+            {
+                "text": "适配器文档",
+                "collapsed": true,
+                "items": [
+                    {
+                        "text": "使用文档-接口",
+                        "link": "/markdown/dev/adapter/apis"
+                    },
+                    {
+                        "text": "使用文档-事件",
+                        "link": "/markdown/dev/adapter/events"
+                    },
+                    {
+                        "text": "开发-适配器",
+                        "link": "/markdown/dev/development"
+                    },
+                    {
+                        "text": "开发-文档",
+                        "link": "/markdown/dev/development-docs"
+                    }
+                ]
+            },
+            {
+                "text": "IIROSE文档",
+                "collapsed": true,
+                "items": [
+                    {
+                        "text": "百科全书",
+                        "collapsed": true,
+                        "items": [
+                            { "text": "文档说明", "link": "/markdown/dev/iirose/start/0" },
+                            { "text": "介绍与教学", "link": "/markdown/dev/iirose/start/1" },
+                            { "text": "个人热度贡献", "link": "/markdown/dev/iirose/start/2" },
+                            { "text": "音频点播详解", "link": "/markdown/dev/iirose/start/3" },
+                            { "text": "操作与快捷键", "link": "/markdown/dev/iirose/start/4" },
+                            { "text": "侧边栏详解 - 上", "link": "/markdown/dev/iirose/start/5" },
+                            { "text": "侧边栏详解 - 下", "link": "/markdown/dev/iirose/start/6" }
+                        ]
+                    },
+                    {
+                        "text": "协议文档",
+                        "collapsed": true,
+                        "items": [
+                            { "text": "连接服务器", "link": "/markdown/dev/iirose/dev/connection" },
+                            { "text": "登录流程", "link": "/markdown/dev/iirose/dev/login" },
+                            { "text": "初始数据包", "link": "/markdown/dev/iirose/dev/after-login" },
+                            { "text": "核心消息", "link": "/markdown/dev/iirose/dev/messages" },
+                            { "text": "服务器事件", "link": "/markdown/dev/iirose/dev/events" },
+                            { "text": "客户端动作", "link": "/markdown/dev/iirose/dev/actions" },
+                            { "text": "媒体", "link": "/markdown/dev/iirose/dev/media" },
+                            { "text": "金融", "link": "/markdown/dev/iirose/dev/financial" },
+                            { "text": "管理员操作", "link": "/markdown/dev/iirose/dev/administration" }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "text": "链接",
+        "items": [
+            {
+                "text": "Reifuu 论坛",
+                "link": "https://forum.reifuu.icu/latest",
+                "target": "_blank"
+            },
+            {
+                "text": "GitHub 仓库",
+                "link": "https://github.com/iirose-plugins/koishi-plugin-adapter-iirose",
+                "target": "_blank"
+            },
+            {
+                "text": "NPM 包",
+                "link": "https://www.npmjs.com/package/koishi-plugin-adapter-iirose",
+                "target": "_blank"
+            },
+            {
+                "text": "Koishi 官网",
+                "link": "https://koishi.chat/zh-CN/guide/",
+                "target": "_blank"
+            },
+            {
+                "text": "iirose.com",
+                "link": "https://iirose.com/",
+                "target": "_blank"
+            }
+        ]
+    }
+]
