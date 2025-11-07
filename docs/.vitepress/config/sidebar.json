@@ -5,7 +5,7 @@
     },
     {
         "text": "平台接入",
-        "collapsed": true,
+        "collapsed": false,
         "items": [
 
             {
@@ -18,13 +18,13 @@
             },
             {
                 "text": "图床支持",
-                "link": "/markdown/adapter/assets"
+                "link": "/markdown/platform-access-guide/assets"
             }
         ]
     },
     {
         "text": "适配器文档",
-        "collapsed": true,
+        "collapsed": false,
         "items": [
             {
                 "text": "使用文档",
@@ -74,13 +74,13 @@
     },
     {
         "text": "IIROSE 文档",
-        "collapsed": true,
+        "collapsed": false,
         "items": [
+            { "text": "文档说明", "link": "/markdown/iirose/introduction" },
             {
                 "text": "百科全书",
                 "collapsed": true,
                 "items": [
-                    { "text": "文档说明", "link": "/markdown/iirose/start/0" },
                     { "text": "介绍与教学", "link": "/markdown/iirose/start/1" },
                     { "text": "个人热度贡献", "link": "/markdown/iirose/start/2" },
                     { "text": "音频点播详解", "link": "/markdown/iirose/start/3" },
@@ -108,8 +108,8 @@
     },
     {
         "text": "插件",
-        "collapsed": true,
-        "items": [ ]
+        "collapsed": false,
+        "items": [ { "text": "插件文档", "link": "/markdown/plugins/0" } ]
     },
     {
         "text": "链接",

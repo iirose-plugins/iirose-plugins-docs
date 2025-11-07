@@ -24,11 +24,11 @@
             "github": "https://github.com/iirose-plugins"
         },
         "lastUpdated": {
-            "text": "上次更新"
+            "text": "最后更新于"
         },
         "editLink": {
             "pattern": "https://github.com/iirose-plugins/iirose-plugins-docs/edit/main/docs/:path",
-            "text": "在 GitHub 上编辑此页"
+            "text": "文档错误？在 GitHub 上编辑此页"
         },
         "logo": "https://iirose.com/favicon.ico",
         "nav": [
@@ -42,7 +42,7 @@
             },
             {
                 "text": "IIROSE",
-                "link": "/markdown/iirose/start/0"
+                "link": "/markdown/iirose/introduction"
             }
         ]
     }
