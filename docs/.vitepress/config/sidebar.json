@@ -73,17 +73,17 @@
     {
         "text": "IIROSE 文档",
         "items": [
-            { "text": "文档说明", "link": "/markdown/iirose/introduction" },
+            { "text": "文档说明", "link": "/markdown/iirose/introduce" },
             {
                 "text": "百科全书",
                 "collapsed": true,
                 "items": [
-                    { "text": "介绍与教学", "link": "/markdown/iirose/start/1" },
-                    { "text": "个人热度贡献", "link": "/markdown/iirose/start/2" },
-                    { "text": "音频点播详解", "link": "/markdown/iirose/start/3" },
-                    { "text": "操作与快捷键", "link": "/markdown/iirose/start/4" },
-                    { "text": "侧边栏详解 - 上", "link": "/markdown/iirose/start/5" },
-                    { "text": "侧边栏详解 - 下", "link": "/markdown/iirose/start/6" }
+                    { "text": "介绍与教学", "link": "/markdown/iirose/introduction/1" },
+                    { "text": "个人热度贡献", "link": "/markdown/iirose/introduction/2" },
+                    { "text": "音频点播详解", "link": "/markdown/iirose/introduction/3" },
+                    { "text": "操作与快捷键", "link": "/markdown/iirose/introduction/4" },
+                    { "text": "侧边栏详解 - 上", "link": "/markdown/iirose/introduction/5" },
+                    { "text": "侧边栏详解 - 下", "link": "/markdown/iirose/introduction/6" }
                 ]
             },
             {

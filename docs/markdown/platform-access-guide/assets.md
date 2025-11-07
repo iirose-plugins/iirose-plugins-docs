@@ -7,7 +7,7 @@
 
 :::
 
-![](./../../public/assets/start/assets-why.png)
+![](./../../public/assets/platform-access-guide/assets-why.png)
 
 ## 第一步：搜索安装 `assets-`
 
@@ -16,7 +16,7 @@
 assets-
 ```
 
-![](./../../public/assets/start/assets-2025-10-02_19-49-59.png)
+![](./../../public/assets/platform-access-guide/assets-2025-10-02_19-49-59.png)
 
 :::warning
 不同的`assets`实现插件 提供的服务相同（提供图床实现、文件床实现），<br>
@@ -55,7 +55,7 @@ assets-
 
 在 `seed` 配置项里填入任意不容易重复的种子字符串，然后开启插件即可！
 
-![](./../../public/assets/start/assets-2025-10-02_20-00-38.png)
+![](./../../public/assets/platform-access-guide/assets-2025-10-02_20-00-38.png)
 
 ## 🎉 完成！
 

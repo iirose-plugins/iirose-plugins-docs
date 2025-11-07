@@ -38,11 +38,11 @@ https://koishi.chat/zh-CN/about/contact.html
 
 1. 在 Windows 开始菜单中找到并打开 Koishi
 
-![启动 Koishi](./../../public/assets/start/698dd082-9d58-45b2-aa7c-ed4241dd1d45.png)
+![启动 Koishi](./../../public/assets/platform-access-guide/698dd082-9d58-45b2-aa7c-ed4241dd1d45.png)
 
 2. 启动后会看到 Koishi 控制台界面
 
-![Koishi 控制台](./../../public/assets/start/0d576fa6-c5e4-4f5d-8466-04b87c805892.png)
+![Koishi 控制台](./../../public/assets/platform-access-guide/0d576fa6-c5e4-4f5d-8466-04b87c805892.png)
 
 ## 第三步：配置插件市场源
 
@@ -64,24 +64,24 @@ https://gitee.com/shangxueink/koishi-registry-aggregator/raw/gh-pages/market.jso
 完成此步骤后需要 **重启 Koishi**，以强制刷新插件市场
 :::
 
-![配置插件市场源](./../../public/assets/start/67482a19-b762-44f7-881f-d137f7fab3a9.png)
+![配置插件市场源](./../../public/assets/platform-access-guide/67482a19-b762-44f7-881f-d137f7fab3a9.png)
 
 ## 第四步：更新所有插件
 
 在插件管理页面，点击"全部更新"按钮：
 
-![更新插件](./../../public/assets/start/a24e3e01-a1c9-4ad3-ab0c-6664de7208e5.png)
+![更新插件](./../../public/assets/platform-access-guide/a24e3e01-a1c9-4ad3-ab0c-6664de7208e5.png)
 
 ## 第五步：安装 IIROSE 适配器
 
 在插件市场搜索并安装 `adapter-iirose`：
 
-![安装 adapter-iirose](./../../public/assets/start/a415c368-0240-4f3f-9e5c-d311c46e0355.png)
+![安装 adapter-iirose](./../../public/assets/platform-access-guide/a415c368-0240-4f3f-9e5c-d311c46e0355.png)
 
 
 ## 第六步：添加 adapter-iirose
 
-![添加 adapter-iirose](./../../public/assets/start/718e8da7-98f1-4927-b04f-a73e23f5a482.png)
+![添加 adapter-iirose](./../../public/assets/platform-access-guide/718e8da7-98f1-4927-b04f-a73e23f5a482.png)
 
-![配置界面](./../../public/assets/start/ec25fd4b-2767-46ac-a7a8-2bb280a9d001.png)
+![配置界面](./../../public/assets/platform-access-guide/ec25fd4b-2767-46ac-a7a8-2bb280a9d001.png)
 

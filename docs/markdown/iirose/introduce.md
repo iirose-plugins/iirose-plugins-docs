@@ -14,12 +14,12 @@
 
 ## 百科全书目录
 
-*   [蔷薇花园IIROSE： 介绍与教学Vol.1](./start/1.md)
-*   [蔷薇花园IIROSE： 个人热度贡献详解](./start/2.md)
-*   [蔷薇花园IIROSE： 音频点播详解](./start/3.md)
-*   [蔷薇花园IIROSE： 操作与快捷键](./start/4.md)
-*   [蔷薇花园IIROSE： 侧边栏详解 - 上](./start/5.md)
-*   [蔷薇花园IIROSE： 侧边栏详解 - 下](./start/6.md)
+*   [蔷薇花园IIROSE： 介绍与教学Vol.1](./introduction/1.md)
+*   [蔷薇花园IIROSE： 个人热度贡献详解](./introduction/2.md)
+*   [蔷薇花园IIROSE： 音频点播详解](./introduction/3.md)
+*   [蔷薇花园IIROSE： 操作与快捷键](./introduction/4.md)
+*   [蔷薇花园IIROSE： 侧边栏详解 - 上](./introduction/5.md)
+*   [蔷薇花园IIROSE： 侧边栏详解 - 下](./introduction/6.md)
 
 ## 协议解析目录
 
