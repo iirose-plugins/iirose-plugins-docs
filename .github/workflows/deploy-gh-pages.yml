@@ -3,9 +3,9 @@ name: Deploy VitePress Docs to GitHub Pages
 on:
   push:
     branches:
-      - main  # 在 main 分支推送时触发
+      - docs  # 在 docs 分支推送时触发
     paths:
-      - 'main/**' # 仅在 main 目录下的文件发生更改时触发
+      - 'docs/**' # 仅在 docs 目录下的文件发生更改时触发
   workflow_dispatch:  # 允许手动触发
 
 jobs:
@@ -15,10 +15,10 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout main branch
+      - name: Checkout docs branch
         uses: actions/checkout@v4
         with:
-          ref: main  # 检出 main 分支
+          ref: docs  # 检出 docs 分支
           path: docs  # 检出到 docs 目录
 
       - name: Setup Node.js
@@ -56,7 +56,7 @@ jobs:
       - name: Copy build output to gh-pages
         run: |
           rm -rf gh-pages/docs/*  # 清空 gh-pages/docs 目录
-          cp -r main/docs/.vitepress/dist/* gh-pages/docs/  # 复制构建输出
+          cp -r docs/docs/.vitepress/dist/* gh-pages/docs/  # 复制构建输出
 
       - name: Commit and push changes to gh-pages
         run: |
