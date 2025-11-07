@@ -48,23 +48,23 @@ https://koishi.chat/zh-CN/about/contact.html
 
 由于官方插件市场源可能存在访问问题，需要更新插件市场配置：
 
-![配置插件市场源](./../../public/assets/start/67482a19-b762-44f7-881f-d137f7fab3a9.png)
-
-
 
 :::warning 
-### 重要
-完成此步骤后需要 **重启 Koishi**，以强制刷新插件市场
-
----
-:::
-
-:::warning 
-在此步骤中，如果你使用`第三步`的镜像源仍无法访问插件市场，请尝试更换为以下镜像源 并重试此步骤：
+推荐使用以下镜像源：
 ```bash
 https://gitee.com/shangxueink/koishi-registry-aggregator/raw/gh-pages/market.json
 ```
 :::
+
+:::warning 
+在此步骤中，如果你使用`第三步`的下面图示步骤的镜像源 却无法访问插件市场，请尝试更换为上述的推荐镜像源 并重试此步骤。
+:::
+
+:::warning 
+完成此步骤后需要 **重启 Koishi**，以强制刷新插件市场
+:::
+
+![配置插件市场源](./../../public/assets/start/67482a19-b762-44f7-881f-d137f7fab3a9.png)
 
 ## 第四步：更新所有插件
 

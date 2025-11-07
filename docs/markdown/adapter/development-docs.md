@@ -17,13 +17,13 @@
 1. **克隆文档仓库**
 
 ```bash
-git clone --branch docs https://github.com/iirose-plugins/koishi-plugin-adapter-iirose.git
+git clone https://github.com/iirose-plugins/iirose-plugins-docs
 ```
 
-2. **切换到文档分支**
+2. **进入文档目录**
 
 ```bash
-cd koishi-plugin-adapter-iirose
+cd iirose-plugins-docs
 ```
 
 3. **安装依赖**
