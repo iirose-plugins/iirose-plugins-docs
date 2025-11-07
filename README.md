@@ -1,15 +1,18 @@
-# koishi-plugin-adapter-iirose 文档
+# IIROSE Plugins Docs
 
-这是 koishi-plugin-adapter-iirose 插件的文档站点。
+IIROSE 插件文档
 
-## 本地开发
+## 如何开发？
 
 ```bash
-git clone https://github.com/iirose-plugins/koishi-plugin-adapter-iirose.git
-cd koishi-plugin-adapter-iirose
-git checkout docs
-yarn install
+git clone https://github.com/iirose-plugins/iirose-plugins-docs
+cd iirose-plugins-docs
+yarn
+code .
 yarn dev
+```
+
+```bash
 yarn build
 ```
 
