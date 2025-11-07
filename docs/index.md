@@ -7,7 +7,7 @@
 
 ## 社区
 
-- **QQ群**: 1059933235
+- **QQ群**: [1059933235](https://qm.qq.com/q/T7DDfrdBWU)
 - **GitHub**: [iirose-plugins](https://github.com/iirose-plugins)
 - **问题反馈**: [GitHub Issues](https://github.com/iirose-plugins/iirose-plugins-docs/issues)
 - **论坛站点**：[forum.reifuu.icu](https://forum.reifuu.icu/latest)
