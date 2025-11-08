@@ -427,6 +427,29 @@ bot.internal.unsubscribeRoom(roomId: string): void
 | :------- | :------- | :----------------- |
 | `roomId` | `string` | 要取消订阅的房间ID |
 
+### broadcast
+
+发送全服广播。
+
+```typescript
+bot.internal.broadcast(broadcast: { message: string, color: string }): void
+```
+
+| 参数                | 类型     | 说明                        |
+| :------------------ | :------- | :-------------------------- |
+| `broadcast`         | `object` | 广播数据对象                |
+| `broadcast.message` | `string` | 广播内容                    |
+| `broadcast.color`   | `string` | 广播颜色 (十六进制颜色代码) |
+
+**示例:**
+```typescript
+// 发送红色广播
+bot.internal.broadcast({
+  message: 'Hello World!',
+  color: '#ff0000'
+})
+```
+
 ## 音乐管理
 
 ### cutOne
@@ -449,6 +472,45 @@ bot.internal.cutOne(data: { id?: string }): void
 ```typescript
 bot.internal.cutAll(): void
 ```
+
+### makeMusic
+
+点播音乐或视频。
+
+```typescript
+bot.internal.makeMusic(musicInfo: MusicOrigin): void
+```
+
+**参数:**
+- `musicInfo`: 音乐信息对象
+
+**示例:**
+```typescript
+// 播放音乐
+bot.internal.makeMusic({
+  type: 'music',
+  name: '歌曲名称',
+  signer: '歌手名称',
+  cover: 'https://example.com/cover.jpg',
+  link: 'https://example.com/music.mp3',
+  url: 'https://example.com/music.mp3',
+  duration: 240, // 秒
+  bitRate: 320,
+  color: '#66ccff',
+  lyrics: '歌词内容',
+  origin: 'netease'
+})
+```
+
+### getMusicList
+
+查询当前频道的歌单。
+
+```typescript
+bot.internal.getMusicList(): Promise<MediaListItem[] | null>
+```
+
+**返回值:** `Promise<MediaListItem[] | null>` - 返回一个包含歌单项目的数组，或在失败时返回 `null`。
 
 ## 用户相关
 
@@ -593,6 +655,54 @@ bot.internal.cancelGradeUser(uid:string): Promise<boolean>
 
 **返回值:** `Promise<boolean>` - 返回一个布尔值，表示操作是否成功。
 
+### getSelfInfo
+
+获取自身账号信息。
+
+```typescript
+bot.internal.getSelfInfo(): Promise<SelfInfo | null>
+```
+
+**返回值:** `Promise<SelfInfo | null>` - 返回一个包含自身账号信息的对象，或在失败时返回 `null`。
+
+### updateSelfInfo
+
+修改自身账号信息。
+
+```typescript
+bot.internal.updateSelfInfo(profileData: ProfileData): Promise<boolean>
+```
+
+| 参数          | 类型          | 说明         |
+| :------------ | :------------ | :----------- |
+| `profileData` | `ProfileData` | 个人资料对象 |
+
+**返回值:** `Promise<boolean>` - 返回一个布尔值，表示操作是否成功。
+
+### getUserProfileByName
+
+通过用户名获取用户资料。
+
+```typescript
+bot.internal.getUserProfileByName(username: string): Promise<UserProfileByName | null>
+```
+
+| 参数       | 类型     | 说明   |
+| :--------- | :------- | :----- |
+| `username` | `string` | 用户名 |
+
+**返回值:** `Promise<UserProfileByName | null>` - 返回一个包含用户资料的对象，或在失败时返回 `null`。
+
+### getMoments
+
+查询朋友圈。
+
+```typescript
+bot.internal.getMoments(): Promise<Moments | null>
+```
+
+**返回值:** `Promise<Moments | null>` - 返回一个包含朋友圈信息的对象，或在失败时返回 `null`。
+
 ## 经济系统
 
 ### payment
@@ -702,134 +812,17 @@ bot.internal.bankWithdraw(amount: number): void
 | :------- | :------- | :------- |
 | `amount` | `number` | 取款金额 |
 
-## 音乐相关
+### getBalance
 
-### makeMusic
-
-点播音乐或视频。
+查询自身余额。
 
 ```typescript
-bot.internal.makeMusic(musicInfo: MusicOrigin): void
+bot.internal.getBalance(): Promise<number | null>
 ```
 
-**参数:**
-- `musicInfo`: 音乐信息对象
+**返回值:** `Promise<number | null>` - 返回一个数字，表示自身余额，或在失败时返回 `null`。
 
-**示例:**
-```typescript
-// 播放音乐
-bot.internal.makeMusic({
-  type: 'music',
-  name: '歌曲名称',
-  signer: '歌手名称',
-  cover: 'https://example.com/cover.jpg',
-  link: 'https://example.com/music.mp3',
-  url: 'https://example.com/music.mp3',
-  duration: 240, // 秒
-  bitRate: 320,
-  color: '#66ccff',
-  lyrics: '歌词内容',
-  origin: 'netease'
-})
-```
-
-## 广播相关
-
-### broadcast
-
-发送全服广播。
-
-```typescript
-bot.internal.broadcast(broadcast: { message: string, color: string }): void
-```
-
-| 参数                | 类型     | 说明                        |
-| :------------------ | :------- | :-------------------------- |
-| `broadcast`         | `object` | 广播数据对象                |
-| `broadcast.message` | `string` | 广播内容                    |
-| `broadcast.color`   | `string` | 广播颜色 (十六进制颜色代码) |
-
-**示例:**
-```typescript
-// 发送红色广播
-bot.internal.broadcast({
-  message: 'Hello World!',
-  color: '#ff0000'
-})
-```
-### getSelfInfo
-
-获取自身账号信息。
-
-```typescript
-bot.internal.getSelfInfo(): Promise<SelfInfo | null>
-```
-
-**返回值:** `Promise<SelfInfo | null>` - 返回一个包含自身账号信息的对象，或在失败时返回 `null`。
-
-### updateSelfInfo
-
-修改自身账号信息。
-
-```typescript
-bot.internal.updateSelfInfo(profileData: ProfileData): Promise<boolean>
-```
-
-| 参数          | 类型          | 说明         |
-| :------------ | :------------ | :----------- |
-| `profileData` | `ProfileData` | 个人资料对象 |
-
-**返回值:** `Promise<boolean>` - 返回一个布尔值，表示操作是否成功。
-
-### getMusicList
-
-查询当前频道的歌单。
-
-```typescript
-bot.internal.getMusicList(): Promise<MediaListItem[] | null>
-```
-
-**返回值:** `Promise<MediaListItem[] | null>` - 返回一个包含歌单项目的数组，或在失败时返回 `null`。
-
-### getForum
-
-查询论坛。
-
-```typescript
-bot.internal.getForum(): Promise<Forum | null>
-```
-
-**返回值:** `Promise<Forum | null>` - 返回一个包含论坛信息的对象，或在失败时返回 `null`。
-
-### getTasks
-
-查询任务。
-
-```typescript
-bot.internal.getTasks(): Promise<Tasks | null>
-```
-
-**返回值:** `Promise<Tasks | null>` - 返回一个包含任务信息的对象，或在失败时返回 `null`。
-
-### getMoments
-
-查询朋友圈。
-
-```typescript
-bot.internal.getMoments(): Promise<Moments | null>
-```
-
-**返回值:** `Promise<Moments | null>` - 返回一个包含朋友圈信息的对象，或在失败时返回 `null`。
-
-### getLeaderboard
-
-查询排行榜。
-
-```typescript
-bot.internal.getLeaderboard(): Promise<Leaderboard | null>
-```
-
-**返回值:** `Promise<Leaderboard | null>` - 返回一个包含排行榜信息的对象，或在失败时返回 `null`。
+## 商店与订单
 
 ### getStore
 
@@ -959,15 +952,39 @@ bot.internal.getFollowedStores(): Promise<string | null>
 
 **返回值:** `Promise<string | null>` - 返回服务器响应的原始字符串，或在失败时返回 `null`。
 
-### getBalance
+## 系统功能
 
-查询自身余额。
+### getForum
+
+查询论坛。
 
 ```typescript
-bot.internal.getBalance(): Promise<number | null>
+bot.internal.getForum(): Promise<Forum | null>
 ```
 
-**返回值:** `Promise<number | null>` - 返回一个数字，表示自身余额，或在失败时返回 `null`。
+**返回值:** `Promise<Forum | null>` - 返回一个包含论坛信息的对象，或在失败时返回 `null`。
+
+### getTasks
+
+查询任务。
+
+```typescript
+bot.internal.getTasks(): Promise<Tasks | null>
+```
+
+**返回值:** `Promise<Tasks | null>` - 返回一个包含任务信息的对象，或在失败时返回 `null`。
+
+### getLeaderboard
+
+查询排行榜。
+
+```typescript
+bot.internal.getLeaderboard(): Promise<Leaderboard | null>
+```
+
+**返回值:** `Promise<Leaderboard | null>` - 返回一个包含排行榜信息的对象，或在失败时返回 `null`。
+
+## 杂项
 
 ### summonDice
 
@@ -980,17 +997,3 @@ bot.internal.summonDice(diceId: number): void
 | 参数     | 类型     | 说明         |
 | :------- | :------- | :----------- |
 | `diceId` | `number` | 骰子ID (0-7) |
-
-### getUserProfileByName
-
-通过用户名获取用户资料。
-
-```typescript
-bot.internal.getUserProfileByName(username: string): Promise<UserProfileByName | null>
-```
-
-| 参数       | 类型     | 说明   |
-| :--------- | :------- | :----- |
-| `username` | `string` | 用户名 |
-
-**返回值:** `Promise<UserProfileByName | null>` - 返回一个包含用户资料的对象，或在失败时返回 `null`。
