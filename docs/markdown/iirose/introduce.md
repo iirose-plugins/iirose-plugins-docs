@@ -11,23 +11,3 @@
 所有权利归原作者所有。
 
 如果您对内容有任何疑问，或希望了解更多，请访问原作者的 Bilibili 页面。
-
-## 百科全书目录
-
-*   [蔷薇花园IIROSE： 介绍与教学Vol.1](./introduction/1.md)
-*   [蔷薇花园IIROSE： 个人热度贡献详解](./introduction/2.md)
-*   [蔷薇花园IIROSE： 音频点播详解](./introduction/3.md)
-*   [蔷薇花园IIROSE： 操作与快捷键](./introduction/4.md)
-*   [蔷薇花园IIROSE： 侧边栏详解](./introduction/5.md)
-
-## 协议解析目录
-
-- [连接服务器](./dev/connection.md)
-- [登录流程](./dev/login.md)
-- [初始数据包](./dev/after-login.md)
-- [核心消息](./dev/messages.md)
-- [服务器事件](./dev/events.md)
-- [客户端动作](./dev/actions.md)
-- [媒体](./dev/media.md)
-- [金融](./dev/financial.md)
-- [管理员操作](./dev/administration.md)
