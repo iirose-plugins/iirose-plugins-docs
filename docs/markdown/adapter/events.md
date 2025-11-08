@@ -75,16 +75,16 @@ ctx.on('message-deleted', (session) => {
 
 ## 房间与用户
 
-### iirose/member-update
+### iirose/guild-member-refresh
 
-房间内成员信息更新时触发。
+房间成员列表刷新时触发。
 
 ```typescript
-ctx.on('iirose/member-update', (session, data) => {
-  ctx.logger.info('成员信息更新:', data)
+ctx.on('iirose/guild-member-refresh', (session) => {
+  ctx.logger.info('房间成员列表已刷新')
 })
 ```
-- **`data`**: `MessageType['memberUpdate']` - 成员更新的详细数据。
+- **`session`**: Koishi Session 对象
 
 ### iirose/switchRoom
 
@@ -108,105 +108,18 @@ ctx.on('iirose/selfMove', (session, data) => {
 ```
 - **`data`**: `MessageType['selfMove']` - 包含目标房间ID。
 
-### iirose/kick
-
-当有用户被踢出房间时触发。
-
-```typescript
-ctx.on('iirose/kick', (kickData) => {
-  ctx.logger.info('踢出用户:', kickData.username)
-})
-```
-- **`kickData`**: `{ username: string }` - 被踢出的用户名。
-
-### iirose/moveRoom
-
-当机器人被指令移动到新房间时触发。
-
-```typescript
-ctx.on('iirose/moveRoom', (data) => {
-  ctx.logger.info('移动到房间:', data.roomId)
-})
-```
-- **`data`**: `{ roomId: string; roomPassword?: string }` - 包含目标房间ID和可选的密码。
-
-### iirose/setMaxUser
-
-当设置房间最大人数时触发。
-
-```typescript
-ctx.on('iirose/setMaxUser', (data) => {
-  ctx.logger.info('设置房间最大人数:', data.maxMember)
-})
-```
-- **`data`**: `{ maxMember: number }` - 设置的最大人数。
-
-### iirose/whiteList
-
-当有用户被添加到白名单时触发。
-
-```typescript
-ctx.on('iirose/whiteList', (data) => {
-  ctx.logger.info(`白名单操作: ${data.username}, 时间: ${data.time}`)
-})
-```
-- **`data`**: `{ username: string; time: string; intro?: string }` - 白名单用户信息。
-
 ## 媒体
 
-### iirose/newMusic
+### iirose/music-play
 
 播放列表有新音乐开始播放时触发。
 
 ```typescript
-ctx.on('iirose/newMusic', (session, data) => {
+ctx.on('iirose/music-play', (session, data) => {
   ctx.logger.info(`正在播放: ${data.name} - ${data.signer}`)
 })
 ```
 - **`data`**: `MessageType['music']` - 包含音乐的详细信息。
-
-### iirose/before-mediaList
-
-在获取媒体列表前触发。
-
-```typescript
-ctx.on('iirose/before-mediaList', (session, data) => {
-  ctx.logger.info('当前播放:', data.current)
-})
-```
-- **`data`**: `MessageType['mediaListCallback']` - 包含媒体列表和当前播放项。
-
-### iirose/cut-one
-
-当有歌曲被切掉时触发。
-
-```typescript
-ctx.on('iirose/cut-one', (cutData) => {
-  ctx.logger.info('切掉歌曲ID:', cutData.id)
-})
-```
-- **`cutData`**: `{ id?: string }` - 被切歌曲的ID，如果为空则为当前歌曲。
-
-### iirose/cut-all
-
-当播放列表被清空时触发。
-
-```typescript
-ctx.on('iirose/cut-all', () => {
-  ctx.logger.info('清空了播放列表')
-})
-```
-
-### iirose/makeMusic
-
-当通过 `bot.internal.makeMusic` 点歌时触发。
-
-```typescript
-ctx.on('iirose/makeMusic', (musicData) => {
-  ctx.logger.info(`点播了音乐: ${musicData.name}`)
-})
-```
-- **`musicData`**: `musicOrigin` - 点播的音乐信息。
 
 ## 邮箱与互动
 
@@ -275,39 +188,6 @@ ctx.on('iirose/payment', (session, data) => {
 - **`data`**: 包含支付方信息、金额和留言。
 
 ## 经济系统
-
-### iirose/before-payment
-
-在发起支付前触发的回调。
-
-```typescript
-ctx.on('iirose/before-payment', (session, data) => {
-  ctx.logger.info(`即将向 ${data.username} 支付 ${data.cost} 花钞`)
-})
-```
-- **`data`**: `MessageType['paymentCallback']` - 支付回调信息。
-
-### iirose/stockSell
-
-当指令出售股票时触发。
-
-```typescript
-ctx.on('iirose/stockSell', (amount) => {
-  ctx.logger.info('出售股票数量:', amount)
-})
-```
-- **`amount`**: `number` - 出售的数量。
-
-### iirose/stockBuy
-
-当指令购买股票时触发。
-
-```typescript
-ctx.on('iirose/stockBuy', (amount) => {
-  ctx.logger.info('购买股票数量:', amount)
-})
-```
-- **`amount`**: `number` - 购买的数量。
 
 ### iirose/stock-update
 

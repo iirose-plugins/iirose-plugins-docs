@@ -486,19 +486,19 @@ bot.internal.getRoomListFile(): Promise<any>
 
 **返回值:** `Promise<any>` - `roomlist.json` 的解析后数据。
 
-### getUserProfile
+### getUserMomentsByUid
 
-获取用户个人简介（用户动态）。
+获取用户动态。
 
 ```typescript
-bot.internal.getUserProfile(uid: string): Promise<string | null>
+bot.internal.getUserMomentsByUid(uid: string): Promise<UserMoments | null>
 ```
 
 | 参数  | 类型     | 说明   |
 | :---- | :------- | :----- |
 | `uid` | `string` | 用户ID |
 
-**返回值:** `Promise<string | null>` - 返回一个 Promise，它会等待并返回服务器响应的用户动态原始字符串，或在超时后返回 `null`。
+**返回值:** `Promise<UserMoments | null>` - 返回一个包含用户动态的对象，或在失败时返回 `null`。
 
 ### getFollowList
 
@@ -577,7 +577,7 @@ bot.internal.unfollowUser(uid: string): void
 为用户打分。
 
 ```typescript
-bot.internal.gradeUser(uid:string, score: number): Promise<string | null>
+bot.internal.gradeUser(uid:string, score: number): Promise<GradeUserCallback | null>
 ```
 
 | 参数    | 类型     | 说明   |
@@ -585,21 +585,21 @@ bot.internal.gradeUser(uid:string, score: number): Promise<string | null>
 | `uid`   | `string` | 用户ID |
 | `score` | `number` | 分数   |
 
-**返回值:** `Promise<string | null>` - 返回服务器的响应原始字符串或 `null`。
+**返回值:** `Promise<GradeUserCallback | null>` - 返回一个包含打分结果的对象，或在失败时返回 `null`。
 
 ### cancelGradeUser
 
 取消为用户打分。
 
 ```typescript
-bot.internal.cancelGradeUser(uid:string): Promise<string | null>
+bot.internal.cancelGradeUser(uid:string): Promise<boolean>
 ```
 
 | 参数  | 类型     | 说明   |
 | :---- | :------- | :----- |
 | `uid` | `string` | 用户ID |
 
-**返回值:** `Promise<string | null>` - 返回服务器的响应原始字符串或 `null`。
+**返回值:** `Promise<boolean>` - 返回一个布尔值，表示操作是否成功。
 
 ## 经济系统
 
@@ -608,7 +608,7 @@ bot.internal.cancelGradeUser(uid:string): Promise<string | null>
 向指定用户支付花钞。
 
 ```typescript
-bot.internal.payment(uid: string, money: number, message?: string): void
+bot.internal.payment(uid: string, money: number, message?: string): Promise<PaymentCallback | null>
 ```
 
 | 参数      | 类型     | 说明            |
@@ -657,10 +657,10 @@ bot.internal.stockSell(amount: number): void
 获取当前股票信息。
 
 ```typescript
-bot.internal.stockGet(): Promise<string | null>
+bot.internal.stockGet(): Promise<Stock | null>
 ```
 
-**返回值:** `Promise<string | null>` - 服务器响应的股价原始字符串。
+**返回值:** `Promise<Stock | null>` - 返回一个包含股票信息的对象，或在失败时返回 `null`。
 
 :::tip
 **说明:**
@@ -677,10 +677,10 @@ bot.internal.stockGet(): Promise<string | null>
 获取银行信息。
 
 ```typescript
-bot.internal.bankGet(): Promise<string | null>
+bot.internal.bankGet(): Promise<BankCallback | null>
 ```
 
-**返回值:** `Promise<string | null>` - 服务器响应的银行信息原始字符串。
+**返回值:** `Promise<BankCallback | null>` - 返回一个包含银行信息的对象，或在失败时返回 `null`。
 
 :::tip
 **说明:**
@@ -786,3 +786,240 @@ bot.internal.broadcast({
   color: '#ff0000'
 })
 ```
+### getSelfInfo
+
+获取自身账号信息。
+
+```typescript
+bot.internal.getSelfInfo(): Promise<SelfInfo | null>
+```
+
+**返回值:** `Promise<SelfInfo | null>` - 返回一个包含自身账号信息的对象，或在失败时返回 `null`。
+
+### updateSelfInfo
+
+修改自身账号信息。
+
+```typescript
+bot.internal.updateSelfInfo(profileData: ProfileData): Promise<boolean>
+```
+
+| 参数          | 类型          | 说明         |
+| :------------ | :------------ | :----------- |
+| `profileData` | `ProfileData` | 个人资料对象 |
+
+**返回值:** `Promise<boolean>` - 返回一个布尔值，表示操作是否成功。
+
+### getMusicList
+
+查询当前频道的歌单。
+
+```typescript
+bot.internal.getMusicList(): Promise<MediaListItem[] | null>
+```
+
+**返回值:** `Promise<MediaListItem[] | null>` - 返回一个包含歌单项目的数组，或在失败时返回 `null`。
+
+### getForum
+
+查询论坛。
+
+```typescript
+bot.internal.getForum(): Promise<Forum | null>
+```
+
+**返回值:** `Promise<Forum | null>` - 返回一个包含论坛信息的对象，或在失败时返回 `null`。
+
+### getTasks
+
+查询任务。
+
+```typescript
+bot.internal.getTasks(): Promise<Tasks | null>
+```
+
+**返回值:** `Promise<Tasks | null>` - 返回一个包含任务信息的对象，或在失败时返回 `null`。
+
+### getMoments
+
+查询朋友圈。
+
+```typescript
+bot.internal.getMoments(): Promise<Moments | null>
+```
+
+**返回值:** `Promise<Moments | null>` - 返回一个包含朋友圈信息的对象，或在失败时返回 `null`。
+
+### getLeaderboard
+
+查询排行榜。
+
+```typescript
+bot.internal.getLeaderboard(): Promise<Leaderboard | null>
+```
+
+**返回值:** `Promise<Leaderboard | null>` - 返回一个包含排行榜信息的对象，或在失败时返回 `null`。
+
+### getStore
+
+查询商店。
+
+```typescript
+bot.internal.getStore(): Promise<Store | null>
+```
+
+**返回值:** `Promise<Store | null>` - 返回一个包含商店信息的对象，或在失败时返回 `null`。
+
+### getSellerCenter
+
+查询卖家中心。
+
+```typescript
+bot.internal.getSellerCenter(): Promise<SellerCenter | null>
+```
+
+**返回值:** `Promise<SellerCenter | null>` - 返回一个包含卖家中心信息的对象，或在失败时返回 `null`。
+
+### addToCart
+
+加入购物车。
+
+```typescript
+bot.internal.addToCart(itemId: string): Promise<boolean>
+```
+
+| 参数     | 类型     | 说明   |
+| :------- | :------- | :----- |
+| `itemId` | `string` | 商品ID |
+
+**返回值:** `Promise<boolean>` - 返回一个布尔值，表示操作是否成功。
+
+### removeFromCart
+
+移除购物车。
+
+```typescript
+bot.internal.removeFromCart(itemId: string): Promise<boolean>
+```
+
+| 参数     | 类型     | 说明   |
+| :------- | :------- | :----- |
+| `itemId` | `string` | 商品ID |
+
+**返回值:** `Promise<boolean>` - 返回一个布尔值，表示操作是否成功。
+
+### getPendingPaymentOrders
+
+查询等待付款的订单。
+
+```typescript
+bot.internal.getPendingPaymentOrders(): Promise<string | null>
+```
+
+**返回值:** `Promise<string | null>` - 返回服务器响应的原始字符串，或在失败时返回 `null`。
+
+### getPendingReceiptOrders
+
+查询待收货的订单。
+
+```typescript
+bot.internal.getPendingReceiptOrders(): Promise<string | null>
+```
+
+**返回值:** `Promise<string | null>` - 返回服务器响应的原始字符串，或在失败时返回 `null`。
+
+### getPendingConfirmationOrders
+
+查询等待确认的订单。
+
+```typescript
+bot.internal.getPendingConfirmationOrders(): Promise<string | null>
+```
+
+**返回值:** `Promise<string | null>` - 返回服务器响应的原始字符串，或在失败时返回 `null`。
+
+### getPendingReviewOrders
+
+查询等待评价的订单。
+
+```typescript
+bot.internal.getPendingReviewOrders(): Promise<string | null>
+```
+
+**返回值:** `Promise<string | null>` - 返回服务器响应的原始字符串，或在失败时返回 `null`。
+
+### getCompletedOrders
+
+查询已完成的订单。
+
+```typescript
+bot.internal.getCompletedOrders(): Promise<string | null>
+```
+
+**返回值:** `Promise<string | null>` - 返回服务器响应的原始字符串，或在失败时返回 `null`。
+
+### getAfterSaleOrders
+
+查询售后中的订单。
+
+```typescript
+bot.internal.getAfterSaleOrders(): Promise<string | null>
+```
+
+**返回值:** `Promise<string | null>` - 返回服务器响应的原始字符串，或在失败时返回 `null`。
+
+### getFavorites
+
+查询收藏夹。
+
+```typescript
+bot.internal.getFavorites(): Promise<string | null>
+```
+
+**返回值:** `Promise<string | null>` - 返回服务器响应的原始字符串，或在失败时返回 `null`。
+
+### getFollowedStores
+
+查询关注店铺。
+
+```typescript
+bot.internal.getFollowedStores(): Promise<string | null>
+```
+
+**返回值:** `Promise<string | null>` - 返回服务器响应的原始字符串，或在失败时返回 `null`。
+
+### getBalance
+
+查询自身余额。
+
+```typescript
+bot.internal.getBalance(): Promise<number | null>
+```
+
+**返回值:** `Promise<number | null>` - 返回一个数字，表示自身余额，或在失败时返回 `null`。
+
+### summonDice
+
+召唤骰子。
+
+```typescript
+bot.internal.summonDice(diceId: number): void
+```
+
+| 参数     | 类型     | 说明         |
+| :------- | :------- | :----------- |
+| `diceId` | `number` | 骰子ID (0-7) |
+
+### getUserProfileByName
+
+通过用户名获取用户资料。
+
+```typescript
+bot.internal.getUserProfileByName(username: string): Promise<UserProfileByName | null>
+```
+
+| 参数       | 类型     | 说明   |
+| :--------- | :------- | :----- |
+| `username` | `string` | 用户名 |
+
+**返回值:** `Promise<UserProfileByName | null>` - 返回一个包含用户资料的对象，或在失败时返回 `null`。
