@@ -43,6 +43,10 @@
             {
                 "text": "IIROSE",
                 "link": "/markdown/iirose/introduce"
+            },
+            {
+                "text": "插件生态",
+                "link": "/markdown/plugins/0"
             }
         ]
     }
