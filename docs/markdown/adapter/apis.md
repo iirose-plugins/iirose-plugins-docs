@@ -514,14 +514,6 @@ bot.internal.getFollowList(uid: string): Promise<FollowList | null>
 
 **返回值:** `Promise<FollowList | null>` - 返回一个包含关注和粉丝列表的对象，或在失败时返回 `null`。
 
-**`FollowList` 类型定义:**
-```typescript
-interface FollowList {
-  follows: { uid: string; username: string }[];
-  fans: { uid: string; username: string }[];
-}
-```
-
 ### sendLike
 
 点赞指定用户。
@@ -603,7 +595,7 @@ bot.internal.cancelGradeUser(uid:string): Promise<boolean>
 
 ## 经济系统
 
-### 转账
+### payment
 
 向指定用户支付花钞。
 
@@ -626,9 +618,7 @@ bot.internal.payment('user123abc456', 100, '感谢支持！')
 bot.internal.payment('user123abc456', 50)
 ```
 
-### 股票系统
-
-#### stockBuy
+### stockBuy
 
 购买股票。
 
@@ -640,7 +630,7 @@ bot.internal.stockBuy(amount: number): void
 | :------- | :------- | :------- |
 | `amount` | `number` | 购买数量 |
 
-#### stockSell
+### stockSell
 
 出售股票。
 
@@ -652,7 +642,7 @@ bot.internal.stockSell(amount: number): void
 | :------- | :------- | :------- |
 | `amount` | `number` | 出售数量 |
 
-#### stockGet
+### stockGet
 
 获取当前股票信息。
 
@@ -670,9 +660,7 @@ bot.internal.stockGet(): Promise<Stock | null>
 当外部插件手动调用此接口时，可以直接通过函数返回值获得股票数据，此时适配器**不会**下发 `iirose/stock-update` 事件。
 :::
 
-### 银行系统
-
-#### bankGet
+### bankGet
 
 获取银行信息。
 
@@ -690,7 +678,7 @@ bot.internal.bankGet(): Promise<BankCallback | null>
 当外部插件手动调用此接口时，可以直接通过函数返回值获得银行数据，此时适配器**不会**下发 `iirose/bank-update` 事件。
 :::
 
-#### bankDeposit
+### bankDeposit
 
 存款到银行。
 
@@ -702,7 +690,7 @@ bot.internal.bankDeposit(amount: number): void
 | :------- | :------- | :------- |
 | `amount` | `number` | 存款金额 |
 
-#### bankWithdraw
+### bankWithdraw
 
 从银行取款。
 
@@ -726,23 +714,6 @@ bot.internal.makeMusic(musicInfo: MusicOrigin): void
 
 **参数:**
 - `musicInfo`: 音乐信息对象
-
-**MusicOrigin 类型定义:**
-```typescript
-interface MusicOrigin {
-  type: 'music' | 'video'
-  name: string
-  signer: string
-  cover: string
-  link: string
-  url: string
-  duration: number
-  bitRate: number
-  color: string
-  lyrics: string
-  origin: 'netease' | 'bilibili' | 'null' | 'undefined' | null
-}
-```
 
 **示例:**
 ```typescript
