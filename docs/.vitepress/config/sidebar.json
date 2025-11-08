@@ -89,6 +89,7 @@
                 "text": "协议文档",
                 "collapsed": true,
                 "items": [
+                    { "text": "监听WS", "link": "/markdown/iirose/dev/check-websocket" },
                     { "text": "连接服务器", "link": "/markdown/iirose/dev/connection" },
                     { "text": "登录流程", "link": "/markdown/iirose/dev/login" },
                     { "text": "初始数据包", "link": "/markdown/iirose/dev/after-login" },
