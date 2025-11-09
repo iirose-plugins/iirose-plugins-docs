@@ -167,8 +167,7 @@
 
 
 ## 完整示例报文（1）
-
-完整文件请前往 -> [点我查看完整报文（1）](././../../../public/assets/iirose/dev/after-login/after-login-1.txt)
+完整文件请前往 -> <a href="././../../../public/assets/iirose/dev/after-login/after-login-1.txt" download="after-login-1.txt">【点我下载完整报文】</a>
 
 ```log
 %*
@@ -214,7 +213,8 @@
 这与之后的 [媒体播放更新](./media.md#媒体播放更新) 头部特征字符串不一致。
 :::
 
-完整文件请前往 -> [点我查看完整报文（2）](././../../../public/assets/iirose/dev/after-login/after-login-2.txt)
+完整文件请前往 -> <a href="././../../../public/assets/iirose/dev/after-login/after-login-2.txt" download="after-login-2.txt">【点我下载完整报文】</a>
+
 
 
 ```log
@@ -247,7 +247,8 @@
 - 只有用户列表。
 :::
 
-完整文件请前往 -> [点我查看完整报文（3）](././../../../public/assets/iirose/dev/after-login/after-login-3.txt)
+完整文件请前往 -> <a href="././../../../public/assets/iirose/dev/after-login/after-login-2.txt" download="after-login-2.txt">【点我下载完整报文】</a>
+
 
 ```log
 %*
