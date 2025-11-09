@@ -73,6 +73,38 @@ ctx.on('message-deleted', (session) => {
 
 **事件数据:** Koishi Session 对象，包含被撤回的消息信息
 
+### guild-member-added
+
+当有新用户加入房间时触发。
+
+```typescript
+ctx.on('guild-member-added', (session) => {
+  ctx.logger.info(`用户 ${session.user.name} (${session.userId}) 加入了房间 ${session.guildId}`)
+})
+```
+
+**事件数据:** Koishi Session 对象
+
+**使用场景:**
+- 发送欢迎消息
+- 记录新成员信息
+
+### guild-member-removed
+
+当有用户离开房间时触发。
+
+```typescript
+ctx.on('guild-member-removed', (session) => {
+  ctx.logger.info(`用户 ${session.user.name} (${session.userId}) 离开了房间 ${session.guildId}`)
+})
+```
+
+**事件数据:** Koishi Session 对象
+
+**使用场景:**
+- 发送送别消息
+- 清理用户数据
+
 ## 房间与用户
 
 ### iirose/guild-member-refresh
@@ -86,12 +118,12 @@ ctx.on('iirose/guild-member-refresh', (session) => {
 ```
 - **`session`**: Koishi Session 对象
 
-### iirose/switchRoom
+### iirose/guild-member-switchRoom
 
 用户切换房间时触发。
 
 ```typescript
-ctx.on('iirose/switchRoom', (session, data) => {
+ctx.on('iirose/guild-member-switchRoom', (session, data) => {
   ctx.logger.info(`用户 ${data.username} 从 ${data.fromRoom} 切换到 ${data.toRoom}`)
 })
 ```

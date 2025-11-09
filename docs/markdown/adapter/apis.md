@@ -362,6 +362,22 @@ await bot.internal.moveRoom({
 })
 ```
 
+### getRoomId
+
+获取机器人当前所在的房间ID。
+
+```typescript
+bot.internal.getRoomId(): string
+```
+
+**返回值:** `string` - 当前房间的ID。
+
+**示例:**
+```typescript
+const currentRoom = bot.internal.getRoomId();
+ctx.logger.info('机器人当前在房间:', currentRoom);
+```
+
 ### kick
 
 通过用户名踢出用户。
