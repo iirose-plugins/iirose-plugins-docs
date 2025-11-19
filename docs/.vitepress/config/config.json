@@ -1,53 +1,53 @@
 {
-    "title": "IIROSE 插件文档",
-    "description": "IIROSE 开源插件系列文档",
-    "ignoreDeadLinks": true,
-    "base": "/iirose-plugins-docs/",
-    "head": [
-        [
-            "link",
-            {
-                "rel": "icon",
-                "href": "https://iirose.com/favicon.ico"
-            }
-        ],
-        [
-            "meta",
-            {
-                "name": "theme-color",
-                "content": "#00A1D6"
-            }
-        ]
+  "title": "IIROSE 插件文档",
+  "description": "IIROSE 开源插件系列文档",
+  "ignoreDeadLinks": true,
+  "base": "/iirose-plugins-docs/",
+  "head": [
+    [
+      "link",
+      {
+        "rel": "icon",
+        "href": "https://iirose.com/favicon.ico"
+      }
     ],
-    "themeConfig": {
-        "socialLinks": {
-            "github": "https://github.com/iirose-plugins"
-        },
-        "lastUpdated": {
-            "text": "最后更新于"
-        },
-        "editLink": {
-            "pattern": "https://github.com/iirose-plugins/iirose-plugins-docs/edit/main/docs/:path",
-            "text": "文档错误？在 GitHub 上编辑此页"
-        },
-        "logo": "https://iirose.com/favicon.ico",
-        "nav": [
-            {
-                "text": "平台接入",
-                "link": "/markdown/platform-access-guide/koishi"
-            },
-            {
-                "text": "适配器",
-                "link": "/markdown/adapter/config"
-            },
-            {
-                "text": "IIROSE",
-                "link": "/markdown/iirose/introduce"
-            },
-            {
-                "text": "插件生态",
-                "link": "/markdown/plugins/0"
-            }
-        ]
-    }
+    [
+      "meta",
+      {
+        "name": "theme-color",
+        "content": "#00A1D6"
+      }
+    ]
+  ],
+  "themeConfig": {
+    "socialLinks": {
+      "github": "https://github.com/iirose-plugins"
+    },
+    "lastUpdated": {
+      "text": "最后更新于"
+    },
+    "editLink": {
+      "pattern": "https://github.com/iirose-plugins/iirose-plugins-docs/edit/main/docs/:path",
+      "text": "文档错误？在 GitHub 上编辑此页"
+    },
+    "logo": "https://iirose.com/favicon.ico",
+    "nav": [
+      {
+        "text": "平台接入",
+        "link": "/markdown/platform-access-guide/koishi"
+      },
+      {
+        "text": "适配器",
+        "link": "/markdown/adapter/config"
+      },
+      {
+        "text": "IIROSE",
+        "link": "/markdown/iirose/introduce"
+      },
+      {
+        "text": "插件生态",
+        "link": "/markdown/plugins/0"
+      }
+    ]
+  }
 }

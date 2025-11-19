@@ -1,2 +1,2 @@
-import { defineTheme } from '@cordisjs/vitepress/client'
-export default defineTheme({})
+import { defineTheme } from '@cordisjs/vitepress/client';
+export default defineTheme({});
