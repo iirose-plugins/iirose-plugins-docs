@@ -466,6 +466,23 @@ bot.internal.broadcast({
 })
 ```
 
+### sendRoomNotice
+
+发送当前房间（聊天室）公告。
+
+```typescript
+bot.internal.sendRoomNotice(notice: string): void
+```
+
+| 参数     | 类型     | 说明       |
+| :------- | :------- | :--------- |
+| `notice` | `string` | 公告内容   |
+
+**示例:**
+```typescript
+bot.internal.sendRoomNotice('这是本房间公告')
+```
+
 ## 音乐管理
 
 ### cutOne
@@ -999,6 +1016,37 @@ bot.internal.getLeaderboard(): Promise<Leaderboard | null>
 ```
 
 **返回值:** `Promise<Leaderboard | null>` - 返回一个包含排行榜信息的对象，或在失败时返回 `null`。
+
+### getChangelog
+
+获取 IIROSE 版本更新日志。适配器会请求 `https://iirose.com/lib/php/function/changes.php` 并将纯文本解析为结构化 JSON。
+
+```typescript
+bot.internal.getChangelog(): Promise<ChangelogData | null>
+```
+
+**返回值:** `Promise<ChangelogData | null>` - 返回解析后的版本日志对象，或在失败时返回 `null`。
+
+```typescript
+interface ChangelogEntry {
+  version: string
+  changes: string[]
+}
+
+interface ChangelogData {
+  latest: string
+  versions: ChangelogEntry[]
+}
+```
+
+**示例:**
+```typescript
+const changelog = await bot.internal.getChangelog()
+if (changelog) {
+  ctx.logger.info('最新版本:', changelog.latest)
+  ctx.logger.info('版本数:', changelog.versions.length)
+}
+```
 
 ## 杂项
 

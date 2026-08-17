@@ -159,17 +159,34 @@ ctx.on('iirose/music-play', (session, data) => {
 以下事件均来自于用户的“邮箱”系统，提供了丰富的用户互动信息。
 :::
 
+### iirose/mailbox
+
+收到任意信箱内容时触发；之后还会按具体类型触发下方细分事件。
+
+```typescript
+ctx.on('iirose/mailbox', (session, data) => {
+  ctx.logger.info('信箱类型:', data.type)
+})
+```
+
+- **`session`**: Koishi Session 对象
+- **`data`**: `MailboxMessageData`，`data.type` 为 `roomNotice | follower | like | dislike | payment`
+
+:::tip
+`MailboxMessageData` 已从插件入口导出，可在插件中直接引入使用。
+:::
+
 ### iirose/roomNotice
 
 收到房间公告时触发。
 
 ```typescript
 ctx.on('iirose/roomNotice', (session, data) => {
-  ctx.logger.info(`收到房间公告: ${data.title}`)
+  ctx.logger.info(`收到房间公告: ${data.notice}`)
 })
 ```
 - **`session`**: Koishi Session 对象
-- **`data`**: 包含公告内容的对象，例如 `title`, `message`。
+- **`data`**: 包含公告内容的对象，例如 `notice`, `background`, `timestamp`。
 
 ### iirose/follower
 
@@ -181,7 +198,7 @@ ctx.on('iirose/follower', (session, data) => {
 })
 ```
 - **`session`**: Koishi Session 对象
-- **`data`**: 包含粉丝信息，例如 `username`, `userId`。
+- **`data`**: 包含粉丝信息，例如 `username`, `avatar`, `gender`。
 
 ### iirose/like
 
@@ -213,7 +230,7 @@ ctx.on('iirose/dislike', (session, data) => {
 
 ```typescript
 ctx.on('iirose/payment', (session, data) => {
-  ctx.logger.info(`收到来自 ${data.username} 的 ${data.amount} 花钞`)
+  ctx.logger.info(`收到来自 ${data.username} 的 ${data.money} 花钞`)
 })
 ```
 - **`session`**: Koishi Session 对象
