@@ -18,6 +18,7 @@ ctx.on('before-send', (session) => {
 **事件数据:** Koishi Session 对象
 
 **使用场景:**
+
 - 消息内容过滤
 - 消息格式化
 - 发送权限检查
@@ -35,6 +36,7 @@ ctx.on('send', (session) => {
 **事件数据:** Koishi Session 对象，包含已发送的消息ID
 
 **使用场景:**
+
 - 消息发送统计
 - 发送日志记录
 - 后续处理逻辑
@@ -54,6 +56,7 @@ ctx.on('message', (session) => {
 **事件数据:** Koishi Session 对象
 
 **使用场景:**
+
 - 消息处理
 - 自动回复
 - 消息统计
@@ -86,6 +89,7 @@ ctx.on('guild-member-added', (session) => {
 **事件数据:** Koishi Session 对象
 
 **使用场景:**
+
 - 发送欢迎消息
 - 记录新成员信息
 
@@ -102,6 +106,7 @@ ctx.on('guild-member-removed', (session) => {
 **事件数据:** Koishi Session 对象
 
 **使用场景:**
+
 - 发送送别消息
 - 清理用户数据
 
@@ -116,6 +121,7 @@ ctx.on('iirose/guild-member-refresh', (session) => {
   ctx.logger.info('房间成员列表已刷新')
 })
 ```
+
 - **`session`**: Koishi Session 对象
 
 ### iirose/guild-member-switchRoom
@@ -127,7 +133,27 @@ ctx.on('iirose/guild-member-switchRoom', (session, data) => {
   ctx.logger.info(`用户 ${data.username} 从 ${data.fromRoom} 切换到 ${data.toRoom}`)
 })
 ```
+
 - **`data`**: `MessageType['switchRoom']` - 包含用户名、来源房间和目标房间。
+
+### iirose/room-state
+
+收到新版登录大包时触发，携带完整包最前面的当前房间状态信息，例如正在播放的音乐。
+
+```typescript
+ctx.on('iirose/room-state', (state) => {
+  ctx.logger.info('当前播放:', state.music?.name)
+  ctx.logger.info('点歌人:', state.music?.requester)
+})
+```
+
+- **`state`**: `RoomState` - 包含 `raw` 原始状态，以及可选的 `music` 当前音乐信息。
+
+:::tip
+该状态同时会写入 `ctx.baseDir/data/adapter-iirose/<botId>/wsdata/roomState.json`，可通过 `bot.internal.getRoomStateFile()` 读取。
+:::
+
+没有房间状态的老版 `%*"` 登录包不会触发该事件。
 
 ### iirose/selfMove
 
@@ -138,6 +164,7 @@ ctx.on('iirose/selfMove', (session, data) => {
   ctx.logger.info('机器人移动到房间:', data.roomId)
 })
 ```
+
 - **`data`**: `MessageType['selfMove']` - 包含目标房间ID。
 
 ## 媒体
@@ -151,6 +178,7 @@ ctx.on('iirose/music-play', (session, data) => {
   ctx.logger.info(`正在播放: ${data.name} - ${data.signer}`)
 })
 ```
+
 - **`data`**: `MessageType['music']` - 包含音乐的详细信息。
 
 ## 邮箱与互动
@@ -185,6 +213,7 @@ ctx.on('iirose/roomNotice', (session, data) => {
   ctx.logger.info(`收到房间公告: ${data.notice}`)
 })
 ```
+
 - **`session`**: Koishi Session 对象
 - **`data`**: 包含公告内容的对象，例如 `notice`, `background`, `timestamp`。
 
@@ -197,6 +226,7 @@ ctx.on('iirose/follower', (session, data) => {
   ctx.logger.info(`新粉丝: ${data.username}`)
 })
 ```
+
 - **`session`**: Koishi Session 对象
 - **`data`**: 包含粉丝信息，例如 `username`, `avatar`, `gender`。
 
@@ -209,6 +239,7 @@ ctx.on('iirose/like', (session, data) => {
   ctx.logger.info(`收到来自 ${data.username} 的点赞`)
 })
 ```
+
 - **`session`**: Koishi Session 对象
 - **`data`**: 包含点赞者信息和附带消息。
 
@@ -221,6 +252,7 @@ ctx.on('iirose/dislike', (session, data) => {
   ctx.logger.info(`收到来自 ${data.username} 的点踩`)
 })
 ```
+
 - **`session`**: Koishi Session 对象
 - **`data`**: 包含点踩者信息和附带消息。
 
@@ -233,6 +265,7 @@ ctx.on('iirose/payment', (session, data) => {
   ctx.logger.info(`收到来自 ${data.username} 的 ${data.money} 花钞`)
 })
 ```
+
 - **`session`**: Koishi Session 对象
 - **`data`**: 包含支付方信息、金额和留言。
 
@@ -248,6 +281,7 @@ ctx.on('iirose/stock-update', (stockData) => {
   ctx.logger.info('涨跌:', stockData.change)
 })
 ```
+
 - **`stockData`**: `Stock` - 包含股票价格、涨跌、成交量等信息。
 
 ### iirose/bank-update
@@ -259,6 +293,7 @@ ctx.on('iirose/bank-update', (bankData) => {
   ctx.logger.info('当前存款:', bankData.savings)
 })
 ```
+
 - **`bankData`**: `BankCallback` - 包含银行存款等信息。
 
 ## 其他
@@ -272,4 +307,21 @@ ctx.on('iirose/broadcast', (session, data) => {
   ctx.logger.info('收到广播:', data.message)
 })
 ```
+
 - **`data`**: `BroadcastMessage` - 包含广播内容和颜色。
+
+### iirose/broadcast-ack
+
+收到广播发送回执时触发。IIROSE 服务端会返回 `Ds`，但不会在回执中携带剩余次数；适配器会根据本地缓存维护今日剩余广播次数。
+
+```typescript
+ctx.on('iirose/broadcast-ack', (remaining) => {
+  ctx.logger.info('今日剩余广播次数:', remaining)
+})
+```
+
+- **`remaining`**: `number` - 本地缓存中的今日剩余广播次数。
+
+:::tip
+该次数是本地估算值。缓存文件位于 `ctx.baseDir/data/adapter-iirose/<botId>/wsdata/broadcastCount.json`，跨日会自动重置。
+:::

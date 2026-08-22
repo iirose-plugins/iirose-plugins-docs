@@ -17,13 +17,13 @@ if (bot == null) return;
 
 ## 注意事项
 
-1.  **连接状态**: 确保机器人处于在线状态再调用API
-2.  **权限检查**: 某些操作需要管理员权限
-3.  **频率限制**: 避免过于频繁的API调用
-4.  **错误处理**: 建议对所有API调用进行错误处理
-5.  **数据格式**: 返回的数据格式可能随IIROSE更新而变化
-6.  **网络异常**: 处理网络超时和连接失败的情况
-7.  **房间权限**: 某些操作需要在特定房间或具有特定权限才能执行
+1. **连接状态**: 确保机器人处于在线状态再调用API
+2. **权限检查**: 某些操作需要管理员权限
+3. **频率限制**: 避免过于频繁的API调用
+4. **错误处理**: 建议对所有API调用进行错误处理
+5. **数据格式**: 返回的数据格式可能随IIROSE更新而变化
+6. **网络异常**: 处理网络超时和连接失败的情况
+7. **房间权限**: 某些操作需要在特定房间或具有特定权限才能执行
 
 ## Bot 通用方法
 
@@ -45,6 +45,7 @@ sendMessage(channelId: string, content: Fragment, guildId?: string, options?: Se
 **返回值:** `Promise<string[]>` - 发送成功的消息ID列表。
 
 **示例:**
+
 ```typescript
 // 发送公聊消息
 await bot.sendMessage('public:room123abc456', 'Hello everyone!')
@@ -74,6 +75,7 @@ sendPrivateMessage(userId: string, content: Fragment, guildId?: string, options?
 **返回值:** `Promise<string[]>` - 发送成功的消息ID列表。
 
 **示例:**
+
 ```typescript
 await bot.sendPrivateMessage('user123abc456', 'Hello private!')
 ```
@@ -89,6 +91,7 @@ getSelf(): Promise<Universal.User>
 **返回值:** `Promise<Universal.User>` - 机器人用户信息
 
 **示例:**
+
 ```typescript
 const selfInfo = await bot.getSelf()
 ctx.logger.info('机器人名称:', selfInfo.name)
@@ -111,6 +114,7 @@ getUser(userId: string, guildId?: string): Promise<Universal.User>
 **返回值:** `Promise<Universal.User>` - 用户信息对象。
 
 **示例:**
+
 ```typescript
 const userInfo = await bot.getUser('user123abc456')
 ctx.logger.info('用户名:', userInfo.name)
@@ -219,9 +223,11 @@ getMessage(channelId: string, messageId: string): Promise<Universal.Message>
 **返回值:** `Promise<Universal.Message>` - 消息详情对象或 `undefined`。
 
 **示例:**
+
 ```typescript
 const message = await bot.getMessage('public:room123abc456', 'msg_key_123')
 ```
+
 ### getMessageKeys
 
 获取当前缓存的所有消息ID。
@@ -233,6 +239,7 @@ getMessageKeys(): string[]
 **返回值:** `string[]` - 缓存的消息ID列表。
 
 **示例:**
+
 ```typescript
 const messageIds = bot.getMessageKeys();
 ctx.logger.info('所有缓存的消息ID:', messageIds);
@@ -241,7 +248,6 @@ ctx.logger.info('所有缓存的消息ID:', messageIds);
 :::tip
 此方法返回的是适配器内部 `sessionCache` 中缓存的消息 ID 列表。缓存的大小由配置项 `sessionCacheSize` 决定。
 :::
-
 
 ### deleteMessage
 
@@ -259,15 +265,18 @@ deleteMessage(channelId: string, messageId: string | string[]): Promise<void>
 **返回值:** `Promise<void>`。
 
 **支持的撤回操作:**
+
 - 公共频道消息撤回：支持撤回自己发送的消息
 - 私信消息撤回：支持撤回自己发送的私信
 
 **注意事项:**
+
 - 只能撤回自己发送的消息
 - 撤回后会触发 `message-deleted` 事件
 - 撤回有时间限制，过久的消息可能无法撤回
 
 **示例:**
+
 ```typescript
 // 撤回公共频道消息
 await bot.deleteMessage('public:room123abc456', 'msg_key_123')
@@ -296,6 +305,7 @@ kickGuildMember(guildId: string, userId: string, permanent?: boolean): Promise<v
 **返回值:** `Promise<void>`。
 
 **示例:**
+
 ```typescript
 await bot.kickGuildMember('room123abc456', 'user123abc456')
 ```
@@ -318,6 +328,7 @@ muteGuildMember(guildId: string, userId: string, duration: number, reason?: stri
 **返回值:** `Promise<void>`。
 
 **示例:**
+
 ```typescript
 // 禁言10分钟
 await bot.muteGuildMember('room123abc456', 'user123abc456', 10 * 60 * 1000, '刷屏')
@@ -351,6 +362,7 @@ bot.internal.moveRoom(moveData: { roomId: string; roomPassword?: string }): Prom
 | `moveData.roomPassword` | `string` | 房间密码 (可选) |
 
 **示例:**
+
 ```typescript
 // 移动到公开房间
 await bot.internal.moveRoom({ roomId: 'newroom123456' })
@@ -373,6 +385,7 @@ bot.internal.getRoomId(): string
 **返回值:** `string` - 当前房间的ID。
 
 **示例:**
+
 ```typescript
 const currentRoom = bot.internal.getRoomId();
 ctx.logger.info('机器人当前在房间:', currentRoom);
@@ -458,6 +471,7 @@ bot.internal.broadcast(broadcast: { message: string, color: string }): void
 | `broadcast.color`   | `string` | 广播颜色 (十六进制颜色代码) |
 
 **示例:**
+
 ```typescript
 // 发送红色广播
 bot.internal.broadcast({
@@ -465,6 +479,43 @@ bot.internal.broadcast({
   color: '#ff0000'
 })
 ```
+
+发送后服务端会返回 `Ds` 回执；适配器会自动维护今日剩余广播次数的本地缓存。
+
+### getBroadcastRemaining
+
+获取今日剩余广播次数。
+
+```typescript
+bot.internal.getBroadcastRemaining(): Promise<number>
+```
+
+**返回值:** `Promise<number>` - 今日剩余广播次数，默认 `10`，跨天后自动恢复。
+
+**示例:**
+
+```typescript
+const remaining = await bot.internal.getBroadcastRemaining()
+ctx.logger.info('今日剩余广播次数:', remaining)
+```
+
+### recordBroadcastAck
+
+记录一次广播回执并扣减今日剩余广播次数。
+
+```typescript
+bot.internal.recordBroadcastAck(): Promise<number>
+```
+
+**返回值:** `Promise<number>` - 扣减后的剩余广播次数。
+
+:::tip
+一般无需手动调用。适配器收到 `Ds` 广播回执后会自动调用，并写入：
+
+`ctx.baseDir/data/adapter-iirose/<botId>/wsdata/broadcastCount.json`
+
+文件内容包含 `botId`、`remaining`、`date`，其中 `date` 用于跨日自动重置。
+:::
 
 ### sendRoomNotice
 
@@ -479,6 +530,7 @@ bot.internal.sendRoomNotice(notice: string): void
 | `notice` | `string` | 公告内容   |
 
 **示例:**
+
 ```typescript
 bot.internal.sendRoomNotice('这是本房间公告')
 ```
@@ -515,9 +567,11 @@ bot.internal.makeMusic(musicInfo: MusicOrigin): void
 ```
 
 **参数:**
+
 - `musicInfo`: 音乐信息对象
 
 **示例:**
+
 ```typescript
 // 播放音乐
 bot.internal.makeMusic({
@@ -580,6 +634,49 @@ bot.internal.getRoomListFile(): Promise<any>
 ```
 
 **返回值:** `Promise<any>` - `roomlist.json` 的解析后数据。
+
+### getRoomStateFile
+
+获取新版登录大包解析出的 `roomState.json` 内容。
+
+```typescript
+bot.internal.getRoomStateFile(): Promise<RoomState | null>
+```
+
+**返回值:** `Promise<RoomState | null>` - 房间状态对象，或在文件不存在/解析失败时返回 `null`。
+
+```typescript
+interface RoomMusicState {
+  audioUrl: string
+  pageUrl: string
+  duration: number
+  name: string
+  artist: string
+  requester: string
+  requesterGender: string
+  cover: string
+  requesterAvatar: string
+  position: number
+  lyrics: string
+}
+
+interface RoomState {
+  raw: string
+  music?: RoomMusicState
+}
+```
+
+**示例:**
+```typescript
+const roomState = await bot.internal.getRoomStateFile()
+if (roomState?.music) {
+  ctx.logger.info('当前播放:', roomState.music.name)
+}
+```
+
+:::tip
+该文件只在存在房间状态的新版 `%1` 登录包中生成；没有音乐等状态的老版 `%*"` 包不会创建 `roomState.json`。
+:::
 
 ### getUserMomentsByUid
 
@@ -753,6 +850,7 @@ bot.internal.payment(uid: string, money: number, message?: string): Promise<Paym
 | `message` | `string` | 支付留言 (可选) |
 
 **示例:**
+
 ```typescript
 // 转账给用户，附带留言
 bot.internal.payment('user123abc456', 100, '感谢支持！')
@@ -1040,6 +1138,7 @@ interface ChangelogData {
 ```
 
 **示例:**
+
 ```typescript
 const changelog = await bot.internal.getChangelog()
 if (changelog) {
