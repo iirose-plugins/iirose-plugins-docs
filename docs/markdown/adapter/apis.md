@@ -374,6 +374,19 @@ await bot.internal.moveRoom({
 })
 ```
 
+### moveRoomStart
+
+直接发送移动房间报文，不触发 WebSocket 重连。
+
+```typescript
+bot.internal.moveRoomStart(roomId: string, roomPassword?: string): void
+```
+
+| 参数           | 类型     | 说明             |
+| :------------- | :------- | :--------------- |
+| `roomId`       | `string` | 目标房间ID       |
+| `roomPassword` | `string` | 房间密码 (可选) |
+
 ### getRoomId
 
 获取机器人当前所在的房间ID。
@@ -431,6 +444,183 @@ bot.internal.whiteList(data: { username: string; time: string; intro?: string })
 | `data.username` | `string` | 用户名         |
 | `data.time`     | `string` | 有效时间       |
 | `data.intro`    | `string` | 说明 (可选)    |
+
+### getMediaWhitelist
+
+查询当前房间“限制发言&点播”白名单。
+
+```typescript
+bot.internal.getMediaWhitelist(): Promise<MediaWhitelistEntry[] | null>
+```
+
+**返回值:** `Promise<MediaWhitelistEntry[] | null>` - 白名单列表，失败或超时返回 `null`。
+
+```typescript
+interface MediaWhitelistEntry {
+  username: string
+  uid: string
+  expireAt: number
+  intro: string
+}
+```
+
+### addMediaWhitelist
+
+添加“限制发言&点播”白名单。
+
+```typescript
+bot.internal.addMediaWhitelist(username: string, duration: string, intro: string): Promise<boolean>
+```
+
+| 参数       | 类型     | 说明             |
+| :--------- | :------- | :--------------- |
+| `username` | `string` | 用户名           |
+| `duration` | `string` | 持续时间，如 `1h`、`1d` |
+| `intro`    | `string` | 备注             |
+
+### removeMediaWhitelist
+
+移除“限制发言&点播”白名单。
+
+```typescript
+bot.internal.removeMediaWhitelist(uid: string): Promise<boolean>
+```
+
+| 参数  | 类型     | 说明   |
+| :---- | :------- | :----- |
+| `uid` | `string` | 用户ID |
+
+### clearMediaWhitelist
+
+清空当前房间“限制发言&点播”白名单。
+
+```typescript
+bot.internal.clearMediaWhitelist(): Promise<boolean>
+```
+
+### setRoomSpeechLevel
+
+设置房间发言限制。
+
+```typescript
+bot.internal.setRoomSpeechLevel(level: 0 | 1 | 2 | 3 | 4 | 5): Promise<boolean>
+```
+
+| 等级 | 含义 |
+| :--- | :--- |
+| `0` | 所有人 |
+| `1` | 普通成员以上 |
+| `2` | 带星成员以上 |
+| `3` | 仅房主 |
+| `4` | 白名单以上 |
+| `5` | 仅白名单 |
+
+### setRoomMusicLevel
+
+设置房间点播限制。
+
+```typescript
+bot.internal.setRoomMusicLevel(level: 0 | 1 | 2 | 3 | 4 | 5): Promise<boolean>
+```
+
+等级含义与 `setRoomSpeechLevel` 相同。
+
+### setRoomBothLevel
+
+同时设置房间发言和点播限制。
+
+```typescript
+bot.internal.setRoomBothLevel(level: 0 | 1 | 2 | 3 | 4 | 5): Promise<boolean>
+```
+
+等级含义与 `setRoomSpeechLevel` 相同。
+
+### getMuteList
+
+查询当前房间禁言列表。
+
+```typescript
+bot.internal.getMuteList(): Promise<MuteListEntry[] | null>
+```
+
+```typescript
+interface MuteListEntry {
+  username: string
+  uid: string
+  expireAt: number
+  intro: string
+  type: number
+}
+```
+
+`type`：`1` 禁止发言，`2` 禁止点播，`3` 同时禁止。
+
+### muteUser
+
+禁言用户。
+
+```typescript
+bot.internal.muteUser(type: 'chat' | 'music' | 'all', username: string, duration: string, intro: string): Promise<boolean>
+```
+
+| 参数       | 类型     | 说明 |
+| :--------- | :------- | :--- |
+| `type`     | `string` | `chat` 禁止发言，`music` 禁止点播，`all` 同时禁止 |
+| `username` | `string` | 用户名 |
+| `duration` | `string` | 持续时间，如 `1m`、`30m`、`1d` |
+| `intro`    | `string` | 备注 |
+
+### unmuteUser
+
+解除禁言。
+
+```typescript
+bot.internal.unmuteUser(uid: string): Promise<boolean>
+```
+
+| 参数  | 类型     | 说明   |
+| :---- | :------- | :----- |
+| `uid` | `string` | 用户ID |
+
+### clearMuteList
+
+清空当前房间禁言列表。
+
+```typescript
+bot.internal.clearMuteList(): Promise<boolean>
+```
+
+### getBlacklist
+
+查询当前房间黑名单。
+
+```typescript
+bot.internal.getBlacklist(): Promise<MediaWhitelistEntry[] | null>
+```
+
+### addBlacklist
+
+添加黑名单。
+
+```typescript
+bot.internal.addBlacklist(username: string, duration: string, intro: string): Promise<boolean>
+```
+
+### removeBlacklist
+
+移除黑名单。
+
+```typescript
+bot.internal.removeBlacklist(uid: string): Promise<boolean>
+```
+
+### clearBlacklist
+
+清空当前房间黑名单。
+
+```typescript
+bot.internal.clearBlacklist(): Promise<boolean>
+```
 
 ### subscribeRoom
 
@@ -558,6 +748,66 @@ bot.internal.cutOne(data: { id?: string }): void
 bot.internal.cutAll(): void
 ```
 
+### clearMedia
+
+清空整个播放列表（`cutAll` 的别名）。
+
+```typescript
+bot.internal.clearMedia(): void
+```
+
+### seekMedia
+
+快进或快退当前媒体。
+
+```typescript
+bot.internal.seekMedia(operation: '<' | '>', time: string): Promise<number | null>
+```
+
+| 参数        | 类型       | 说明                        |
+| :---------- | :--------- | :-------------------------- |
+| `operation` | `'<' \| '>'` | `'<'` 快退，`'>'` 快进 |
+| `time`      | `string`   | 时间，如 `1s`、`1m`、`1h`  |
+
+**返回值:** `Promise<number | null>` - 移动后的播放位置秒数，失败或超时返回 `null`。
+
+### jumpMedia
+
+跳转到指定播放位置。
+
+```typescript
+bot.internal.jumpMedia(time: string): Promise<number | null>
+```
+
+| 参数   | 类型     | 说明                 |
+| :----- | :------- | :------------------- |
+| `time` | `string` | 时间，如 `1:30` 或秒数 |
+
+**返回值:** `Promise<number | null>` - 移动后的播放位置秒数，失败或超时返回 `null`。
+
+### exchangeMedia
+
+交换歌单中两首媒体的位置。
+
+```typescript
+bot.internal.exchangeMedia(id1: string, id2: string): void
+```
+
+| 参数  | 类型     | 说明                         |
+| :---- | :------- | :--------------------------- |
+| `id1` | `string` | 媒体ID，格式为 `index_length` |
+| `id2` | `string` | 媒体ID，格式为 `index_length` |
+
+### nextMedia
+
+切到下一首媒体。
+
+```typescript
+bot.internal.nextMedia(): Promise<boolean>
+```
+
+**返回值:** `Promise<boolean>` - 收到成功回执返回 `true`，当前无媒体或失败返回 `false`。
+
 ### makeMusic
 
 点播音乐或视频。
@@ -589,6 +839,32 @@ bot.internal.makeMusic({
 })
 ```
 
+### requestMusic
+
+点歌。调用方需要先自行解析出直链和歌词，再调用适配器发送点歌报文。
+
+```typescript
+bot.internal.requestMusic(musicInfo: MusicOrigin): void
+```
+
+**示例:**
+
+```typescript
+bot.internal.requestMusic({
+  type: 'music',
+  name: '我的悲伤是水做的',
+  signer: 'ChiliChill乐团 & 洛天依Official',
+  cover: 'https://p1.music.126.net/cover.jpg',
+  link: 'https://music.163.com/#/song?id=1439814454',
+  url: 'https://m10.music.126.net/audio.mp3',
+  duration: 225.8,
+  bitRate: 128,
+  color: 'b0c4c7',
+  lyrics: '[00:00.000] 歌词内容',
+  origin: 'netease'
+})
+```
+
 ### getMusicList
 
 查询当前频道的歌单。
@@ -598,6 +874,21 @@ bot.internal.getMusicList(): Promise<MediaListItem[] | null>
 ```
 
 **返回值:** `Promise<MediaListItem[] | null>` - 返回一个包含歌单项目的数组，或在失败时返回 `null`。
+
+:::tip
+`MediaListItem.id` 的格式为 `index_length`，例如 `0_98.893787`，可直接用于 `exchangeMedia()`。
+:::
+
+```typescript
+interface MediaListItem {
+  id: string
+  length: number
+  title: string
+  artist: string
+  requester: string
+  cover: string
+}
+```
 
 ## 用户相关
 
@@ -625,6 +916,18 @@ bot.internal.getUserListFile(): Promise<any>
 
 **返回值:** `Promise<any>` - `userlist.json` 的解析后数据。
 
+### requestUserList
+
+请求服务器重新下发全服用户在线列表。
+
+```typescript
+bot.internal.requestUserList(): void
+```
+
+:::tip
+适配器在登录时和定时完整报文中已经会自动更新 `userlist.json`，一般无需手动调用。
+:::
+
 ### getRoomListFile
 
 获取 `roomlist.json` 的内容。
@@ -634,6 +937,20 @@ bot.internal.getRoomListFile(): Promise<any>
 ```
 
 **返回值:** `Promise<any>` - `roomlist.json` 的解析后数据。
+
+### getRoomList
+
+获取当前缓存的房间列表。
+
+```typescript
+bot.internal.getRoomList(): Promise<any>
+```
+
+**返回值:** `Promise<any>` - `roomlist.json` 的解析后数据。
+
+:::tip
+房间列表来自登录/定时完整报文，当前没有单独的房间列表请求协议，所以该 API 读取的是本地缓存。
+:::
 
 ### getRoomStateFile
 

@@ -155,6 +155,91 @@ ctx.on('iirose/room-state', (state) => {
 
 没有房间状态的老版 `%*"` 登录包不会触发该事件。
 
+### iirose/media-whitelist-list
+
+收到“限制发言&点播”白名单列表时触发。
+
+```typescript
+ctx.on('iirose/media-whitelist-list', (list) => {
+  ctx.logger.info('白名单人数:', list.length)
+})
+```
+
+- **`list`**: `MediaWhitelistEntry[]` - 白名单成员列表。
+
+### iirose/media-whitelist-event
+
+收到“限制发言&点播”白名单增删事件时触发。
+
+```typescript
+ctx.on('iirose/media-whitelist-event', (data) => {
+  ctx.logger.info('白名单变更:', data.type)
+})
+```
+
+- **`data`**: `MediaWhitelistEvent` - 包含 `type: 'added' | 'removed'`，以及可选的 `expireAt`、`intro`、`roomId`。
+
+### iirose/room-restriction
+
+收到房间发言或点播限制变化时触发。
+
+```typescript
+ctx.on('iirose/room-restriction', (data) => {
+  ctx.logger.info('限制类型:', data.type)
+  ctx.logger.info('限制等级:', data.level)
+})
+```
+
+- **`data`**: `RoomRestrictionEvent` - `type` 为 `speech | music | both`，`level` 为 `0-5`。
+
+### iirose/mute-list
+
+收到禁言列表时触发。
+
+```typescript
+ctx.on('iirose/mute-list', (list) => {
+  ctx.logger.info('禁言人数:', list.length)
+})
+```
+
+- **`list`**: `MuteListEntry[]` - 禁言列表。
+
+### iirose/mute-event
+
+收到禁言或解除禁言事件时触发。
+
+```typescript
+ctx.on('iirose/mute-event', (data) => {
+  ctx.logger.info('禁言事件:', data.type)
+})
+```
+
+- **`data`**: `MuteEvent` - `type` 为 `added | removed`，并包含 `muteType`。
+
+### iirose/blacklist-list
+
+收到黑名单列表时触发。
+
+```typescript
+ctx.on('iirose/blacklist-list', (list) => {
+  ctx.logger.info('黑名单人数:', list.length)
+})
+```
+
+- **`list`**: `MediaWhitelistEntry[]` - 黑名单列表。
+
+### iirose/blacklist-event
+
+收到黑名单增删或登录被拦截事件时触发。
+
+```typescript
+ctx.on('iirose/blacklist-event', (data) => {
+  ctx.logger.info('黑名单事件:', data.type)
+})
+```
+
+- **`data`**: `BlacklistEvent` - `type` 为 `added | blocked`。
+
 ### iirose/selfMove
 
 机器人自身移动房间后触发。
