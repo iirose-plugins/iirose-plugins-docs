@@ -110,6 +110,10 @@ ctx.on('guild-member-removed', (session) => {
 - 发送送别消息
 - 清理用户数据
 
+:::tip
+机器人自己被踢出房间时，也会通过该事件下发 `guild-member-removed`。
+:::
+
 ## 房间与用户
 
 ### iirose/guild-member-refresh

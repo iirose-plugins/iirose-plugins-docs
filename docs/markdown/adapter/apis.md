@@ -310,6 +310,10 @@ kickGuildMember(guildId: string, userId: string, permanent?: boolean): Promise<v
 await bot.kickGuildMember('room123abc456', 'user123abc456')
 ```
 
+:::tip
+`permanent: true` 会先使用黑名单实现“永久无法再次加入”，再执行踢出。当前是按黑名单协议推断实现，需要实际环境验证。
+:::
+
 ### muteGuildMember
 
 禁言群组成员。
@@ -326,6 +330,10 @@ muteGuildMember(guildId: string, userId: string, duration: number, reason?: stri
 | `reason`   | `string` | 禁言原因 (可选)                          |
 
 **返回值:** `Promise<void>`。
+
+:::tip
+传入 `duration: 0` 表示解除禁言。
+:::
 
 **示例:**
 
@@ -429,6 +437,54 @@ bot.internal.setMaxUser(data: { maxMember: number }): void
 | :--------------- | :------- | :----------- |
 | `data`           | `object` | 设置数据对象 |
 | `data.maxMember` | `number` | 最大人数     |
+
+### getRoomMaxUsers
+
+查询当前房间最大人数限制，返回 `null` 表示不限制。
+
+```typescript
+bot.internal.getRoomMaxUsers(): Promise<number | null>
+```
+
+### setRoomMaxUsers
+
+设置当前房间最大人数；不传或传 `null` 表示恢复不限制。
+
+```typescript
+bot.internal.setRoomMaxUsers(count?: number | null): Promise<boolean>
+```
+
+### getRoomMaxGuests
+
+查询当前房间最大游客人数限制，返回 `null` 表示不限制。
+
+```typescript
+bot.internal.getRoomMaxGuests(): Promise<number | null>
+```
+
+### setRoomMaxGuests
+
+设置当前房间最大游客人数；不传或传 `null` 表示恢复不限制。
+
+```typescript
+bot.internal.setRoomMaxGuests(count?: number | null): Promise<boolean>
+```
+
+### getRoomMinImpression
+
+查询当前房间最低印象门槛，返回 `null` 表示默认及格线以上。
+
+```typescript
+bot.internal.getRoomMinImpression(): Promise<number | null>
+```
+
+### setRoomMinImpression
+
+设置当前房间最低印象门槛；不传或传 `null` 表示恢复默认及格线以上。
+
+```typescript
+bot.internal.setRoomMinImpression(score?: number | null): Promise<boolean>
+```
 
 ### whiteList
 
