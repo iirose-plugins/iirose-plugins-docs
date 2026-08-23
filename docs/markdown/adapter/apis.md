@@ -326,13 +326,13 @@ muteGuildMember(guildId: string, userId: string, duration: number, reason?: stri
 | :--------- | :------- | :--------------------------------------- |
 | `guildId`  | `string` | 群组ID (房间ID)                          |
 | `userId`   | `string` | 要禁言的用户ID                           |
-| `duration` | `number` | 禁言时长 (毫秒)，超过99999秒视为永久禁言 |
+| `duration` | `number` | 禁言时长 (毫秒)，默认 30 分钟；超过99999秒视为永久禁言 |
 | `reason`   | `string` | 禁言原因 (可选)                          |
 
 **返回值:** `Promise<void>`。
 
 :::tip
-传入 `duration: 0` 表示解除禁言。
+传入 `duration: 0` 表示解除禁言；时长会自动格式化为 `d/h/m/s`，例如 `30m`、`1h`。
 :::
 
 **示例:**
@@ -360,7 +360,7 @@ bot.internal: InternalType
 切换机器人所在的房间。
 
 ```typescript
-bot.internal.moveRoom(moveData: { roomId: string; roomPassword?: string }): Promise<void>
+bot.internal.moveRoom(roomId: string, roomPassword?: string): Promise<void>
 ```
 
 | 参数                    | 类型     | 说明            |
@@ -373,27 +373,25 @@ bot.internal.moveRoom(moveData: { roomId: string; roomPassword?: string }): Prom
 
 ```typescript
 // 移动到公开房间
-await bot.internal.moveRoom({ roomId: 'newroom123456' })
+await bot.internal.moveRoom('newroom123456')
 
 // 移动到加密房间
-await bot.internal.moveRoom({
-  roomId: 'privateroom123456',
-  roomPassword: 'room_password'
-})
+await bot.internal.moveRoom('privateroom123456', 'room_password')
 ```
 
-### moveRoomStart
+### joinRoom
 
-直接发送移动房间报文，不触发 WebSocket 重连。
+加入/切换到目标房间，行为与 `moveRoom()` 相同，使用对象参数。
 
 ```typescript
-bot.internal.moveRoomStart(roomId: string, roomPassword?: string): void
+bot.internal.joinRoom(moveData: { roomId: string; roomPassword?: string }): Promise<void>
 ```
 
-| 参数           | 类型     | 说明             |
-| :------------- | :------- | :--------------- |
-| `roomId`       | `string` | 目标房间ID       |
-| `roomPassword` | `string` | 房间密码 (可选) |
+| 参数                    | 类型     | 说明            |
+| :---------------------- | :------- | :-------------- |
+| `moveData`              | `object` | 移动数据对象    |
+| `moveData.roomId`       | `string` | 目标房间ID      |
+| `moveData.roomPassword` | `string` | 房间密码 (可选) |
 
 ### getRoomId
 
@@ -491,14 +489,14 @@ bot.internal.setRoomMinImpression(score?: number | null): Promise<boolean>
 将用户添加到白名单。
 
 ```typescript
-bot.internal.whiteList(data: { username: string; time: string; intro?: string }): void
+bot.internal.whiteList(data: { username: string; time: string | number; intro?: string }): void
 ```
 
 | 参数            | 类型     | 说明           |
 | :-------------- | :------- | :------------- |
 | `data`          | `object` | 白名单数据对象 |
 | `data.username` | `string` | 用户名         |
-| `data.time`     | `string` | 有效时间       |
+| `data.time`     | `string \| number` | 有效时间，默认 30 分钟；支持 `d/h/m/s` 或毫秒 |
 | `data.intro`    | `string` | 说明 (可选)    |
 
 ### getMediaWhitelist
@@ -525,13 +523,13 @@ interface MediaWhitelistEntry {
 添加“限制发言&点播”白名单。
 
 ```typescript
-bot.internal.addMediaWhitelist(username: string, duration: string, intro: string): Promise<boolean>
+bot.internal.addMediaWhitelist(username: string, duration: string | number, intro: string): Promise<boolean>
 ```
 
 | 参数       | 类型     | 说明             |
 | :--------- | :------- | :--------------- |
 | `username` | `string` | 用户名           |
-| `duration` | `string` | 持续时间，如 `1h`、`1d` |
+| `duration` | `string \| number` | 持续时间，默认 30 分钟；支持 `d/h/m/s` 或毫秒 |
 | `intro`    | `string` | 备注             |
 
 ### removeMediaWhitelist
@@ -616,15 +614,19 @@ interface MuteListEntry {
 禁言用户。
 
 ```typescript
-bot.internal.muteUser(type: 'chat' | 'music' | 'all', username: string, duration: string, intro: string): Promise<boolean>
+bot.internal.muteUser(type: 'chat' | 'music' | 'all', username: string, duration: string | number, intro: string): Promise<boolean>
 ```
 
 | 参数       | 类型     | 说明 |
 | :--------- | :------- | :--- |
 | `type`     | `string` | `chat` 禁止发言，`music` 禁止点播，`all` 同时禁止 |
 | `username` | `string` | 用户名 |
-| `duration` | `string` | 持续时间，如 `1m`、`30m`、`1d` |
+| `duration` | `string \| number` | 持续时间，默认 30 分钟；支持 `d/h/m/s` 或毫秒 |
 | `intro`    | `string` | 备注 |
+
+:::tip
+服务器返回 `_~m1` 表示“此用户不存在”，禁言、黑名单、白名单相关 API 会返回 `false`。
+:::
 
 ### unmuteUser
 
@@ -659,8 +661,14 @@ bot.internal.getBlacklist(): Promise<MediaWhitelistEntry[] | null>
 添加黑名单。
 
 ```typescript
-bot.internal.addBlacklist(username: string, duration: string, intro: string): Promise<boolean>
+bot.internal.addBlacklist(username: string, duration: string | number, intro: string): Promise<boolean>
 ```
+
+| 参数       | 类型                 | 说明                                   |
+| :--------- | :------------------- | :------------------------------------- |
+| `username` | `string`             | 用户名                                 |
+| `duration` | `string \| number`   | 持续时间，默认 30 分钟；支持 `d/h/m/s` 或毫秒 |
+| `intro`    | `string`             | 备注                                   |
 
 ### removeBlacklist
 
@@ -758,7 +766,7 @@ bot.internal.recordBroadcastAck(): Promise<number>
 :::tip
 一般无需手动调用。适配器收到 `Ds` 广播回执后会自动调用，并写入：
 
-`ctx.baseDir/data/adapter-iirose/<botId>/wsdata/broadcastCount.json`
+`ctx.baseDir/data/adapter/adapter-iirose/<botId>/wsdata/broadcastCount.json`
 
 文件内容包含 `botId`、`remaining`、`date`，其中 `date` 用于跨日自动重置。
 :::
@@ -1184,17 +1192,106 @@ bot.internal.updateSelfInfo(profileData: ProfileData): Promise<boolean>
 
 ### getUserProfileByName
 
-通过用户名获取用户资料。
+通过用户名获取用户资料（兼容接口）。
 
 ```typescript
-bot.internal.getUserProfileByName(username: string): Promise<UserProfileByName | null>
+bot.internal.getUserProfileByName(username: string): Promise<FullUserProfileByName | null>
 ```
 
 | 参数       | 类型     | 说明   |
 | :--------- | :------- | :----- |
 | `username` | `string` | 用户名 |
 
-**返回值:** `Promise<UserProfileByName | null>` - 返回一个包含用户资料的对象，或在失败时返回 `null`。
+**返回值:** `Promise<FullUserProfileByName | null>` - 返回完整用户资料对象，或在失败时返回 `null`。
+
+:::tip
+该接口保留用于兼容，类型已统一为 `FullUserProfileByName`，不再单独公开 `UserProfileByName`。
+:::
+
+### getFullUserProfileByName
+
+通过用户名获取完整的用户资料（`+1` 资料报文）。
+
+```typescript
+bot.internal.getFullUserProfileByName(username: string): Promise<FullUserProfileByName | null>
+```
+
+| 参数       | 类型     | 说明   |
+| :--------- | :------- | :----- |
+| `username` | `string` | 用户名 |
+
+**返回值:** `Promise<FullUserProfileByName | null>` - 返回一个包含完整用户资料的对象，或在失败时返回 `null`。
+
+```typescript
+interface FullUserProfileByName {
+  username: string // 查询使用的用户名
+  surname: string // 姓
+  givenName: string // 名
+  nickname: string // 昵称/显示名
+  id: string // 唯一标识 ID（+1 资料包中通常为空）
+  gender: 'male' | 'female' | 'unknown' // 性别
+  birthday: string // 生日
+  age: number // 年龄
+  residence: string // 居住地/住址
+  hobbies: string[] // 爱好列表
+  friends: string[] // 好友列表
+  hobby: string // 爱好（兼容字段）
+  sandbox: string // 个人空间标识（兼容字段）
+  isCertified: boolean // 是否已认证（兼容字段）
+  registrationTime: string // 注册时间
+  bio: string // 个人简介
+  album: string // 相册置顶图片
+  background: string // 个人资料背景图
+  backgroundMusic: {
+    name: string // 歌名
+    artist: string // 作者
+    audio: string // 音频地址
+    cover: string // 封面地址
+    link: string // 歌曲链接
+  }
+  lastLoginTime: string // 最后登录时间
+  visits: number // 访问量
+  title: string // 头衔
+  accountStatus: string // 账户状态原始标记
+  status: string // 在线状态原始标记
+  timezone: string // 时区
+  likes: number // 获赞数
+  likers: string[] // 获赞者列表
+  topLiker: string // 获赞最多者
+  money: number // 金钱（钞）
+  following: number // 关注数
+  followers: number // 粉丝数
+  contribution: number // 贡献
+  communities: string[] // 社区列表
+  tag: string // 标签
+  onlineDuration: number // 在线时长（小时）
+  todayActivity: number // 今日活跃（分钟）
+  totalActivity: number // 总活跃（分钟）
+  activity: number // 活跃时长（分钟，兼容字段）
+  credit: number // 信用分
+  bankDeposit: number // 银行存款
+  debt: number // 欠款
+  donations: number // 捐款
+  dislikes: number // 踩
+  location: string // 坐标/当前位置（兼容字段）
+  locationId: string // 坐标 ID（兼容字段）
+  comments: string[] // 留言/评论（兼容字段）
+  impression: {
+    count: number // 印象人数
+    percentage: number // 印象占比
+    multiplier: number // 印象倍数
+  }
+  albumImages: {
+    url: string // 图片地址
+    timestamp?: number // 发布时间
+    description: string // 图片描述
+  }[]
+}
+```
+
+:::tip
+**说明:** 用户资料类型已统一为 `FullUserProfileByName`；旧的 `getUserProfileByName` 保留用于兼容，需要完整字段时优先使用此方法。
+:::
 
 ### getMoments
 

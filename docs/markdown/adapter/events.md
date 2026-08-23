@@ -130,15 +130,15 @@ ctx.on('iirose/guild-member-refresh', (session) => {
 
 ### iirose/guild-member-switchRoom
 
-用户切换房间时触发。
+用户切换房间时触发；机器人自身移动房间时也会触发该事件，并且不再额外派发 `login-added`。
 
 ```typescript
 ctx.on('iirose/guild-member-switchRoom', (session, data) => {
-  ctx.logger.info(`用户 ${data.username} 从 ${data.fromRoom} 切换到 ${data.toRoom}`)
+  ctx.logger.info(`用户 ${data.username} 从 ${data.room} 切换到 ${data.targetRoom}`)
 })
 ```
 
-- **`data`**: `MessageType['switchRoom']` - 包含用户名、来源房间和目标房间。
+- **`data`**: `MessageType['switchRoom']` - 包含 `username`、`room`（来源房间）和 `targetRoom`（目标房间）。
 
 ### iirose/room-state
 
@@ -154,7 +154,7 @@ ctx.on('iirose/room-state', (state) => {
 - **`state`**: `RoomState` - 包含 `raw` 原始状态，以及可选的 `music` 当前音乐信息。
 
 :::tip
-该状态同时会写入 `ctx.baseDir/data/adapter-iirose/<botId>/wsdata/roomState.json`，可通过 `bot.internal.getRoomStateFile()` 读取。
+该状态同时会写入 `ctx.baseDir/data/adapter/adapter-iirose/<botId>/wsdata/roomState.json`，可通过 `bot.internal.getRoomStateFile()` 读取。
 :::
 
 没有房间状态的老版 `%*"` 登录包不会触发该事件。
@@ -210,7 +210,7 @@ ctx.on('iirose/mute-list', (list) => {
 
 ### iirose/mute-event
 
-收到禁言或解除禁言事件时触发。
+收到禁言或解除禁言事件时触发，支持 `q3/q#` 以及 `_~$/_~^` 报文。
 
 ```typescript
 ctx.on('iirose/mute-event', (data) => {
@@ -218,7 +218,9 @@ ctx.on('iirose/mute-event', (data) => {
 })
 ```
 
-- **`data`**: `MuteEvent` - `type` 为 `added | removed`，并包含 `muteType`。
+- **`data`**: `MuteEvent` - `type` 为 `added | removed`，可包含 `username`、`expireAt`、`intro`、`roomId`、`muteType`。
+
+`_~$username>expireAt>intro>type` 表示其他用户被禁言；`_~^username>type` 表示其他用户被解除禁言。
 
 ### iirose/blacklist-list
 
@@ -412,5 +414,5 @@ ctx.on('iirose/broadcast-ack', (remaining) => {
 - **`remaining`**: `number` - 本地缓存中的今日剩余广播次数。
 
 :::tip
-该次数是本地估算值。缓存文件位于 `ctx.baseDir/data/adapter-iirose/<botId>/wsdata/broadcastCount.json`，跨日会自动重置。
+该次数是本地估算值。缓存文件位于 `ctx.baseDir/data/adapter/adapter-iirose/<botId>/wsdata/broadcastCount.json`，跨日会自动重置。
 :::
