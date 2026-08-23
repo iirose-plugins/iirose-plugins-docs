@@ -360,23 +360,24 @@ bot.internal: InternalType
 切换机器人所在的房间。
 
 ```typescript
-bot.internal.moveRoom(roomId: string, roomPassword?: string): Promise<void>
+bot.internal.moveRoom(roomIdOrMoveData: string | { roomId: string; roomPassword?: string }, roomPassword?: string): Promise<void>
 ```
 
 | 参数                    | 类型     | 说明            |
 | :---------------------- | :------- | :-------------- |
-| `moveData`              | `object` | 移动数据对象    |
-| `moveData.roomId`       | `string` | 目标房间ID      |
-| `moveData.roomPassword` | `string` | 房间密码 (可选) |
+| `roomIdOrMoveData`      | `string \| object` | 目标房间ID，或包含 `roomId` / `roomPassword` 的对象 |
+| `roomPassword`          | `string` | 使用字符串形式时传入的房间密码 (可选) |
 
 **示例:**
 
 ```typescript
 // 移动到公开房间
 await bot.internal.moveRoom('newroom123456')
+await bot.internal.moveRoom({ roomId: 'newroom123456' })
 
 // 移动到加密房间
 await bot.internal.moveRoom('privateroom123456', 'room_password')
+await bot.internal.moveRoom({ roomId: 'privateroom123456', roomPassword: 'room_password' })
 ```
 
 ### joinRoom
