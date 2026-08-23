@@ -1049,6 +1049,7 @@ interface RoomState {
 ```
 
 **示例:**
+
 ```typescript
 const roomState = await bot.internal.getRoomStateFile()
 if (roomState?.music) {

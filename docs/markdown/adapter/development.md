@@ -8,18 +8,22 @@
 
 - Node.js >= 22.0.0
 - Koishi 4.18.8+
-- TypeScript 
+- TypeScript
 
 ### 安装依赖
+
 ```bash
 yarn clone iirose-plugins/koishi-plugin-adapter-iirose
 ```
+
 ### 添加到工作区
+
 ```bash
 cd external
 cd adapter-iirose
 code .
 ```
+
 :::tip
 
 此步骤会打开VScode，并将`adapter-iirose`添加至工作区。
@@ -30,16 +34,14 @@ code .
 
 :::
 
-
 ### 开发模式启动
+
 ```bash
 cd ..
 cd ..
 yarn dev
 ```
 
-
 ## 代码规范问题
 
 请前往 -> [sonarcloud.io/project/security_hotspots](https://sonarcloud.io/project/security_hotspots?id=iirose-plugins_koishi-plugin-adapter-iirose&branch=main&issueStatuses=OPEN,CONFIRMED&sinceLeakPeriod=true)
-

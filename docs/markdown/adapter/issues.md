@@ -10,7 +10,6 @@
 
 **地址**: [github.com/iirose-plugins/koishi-plugin-adapter-iirose/issues](https://github.com/iirose-plugins/koishi-plugin-adapter-iirose/issues)
 
-
 ### QQ 群
 
 **群号**: 1059933235

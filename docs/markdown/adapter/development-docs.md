@@ -13,38 +13,37 @@
 
 ### 快速开始
 
-
 1. **克隆文档仓库**
 
 ```bash
 git clone https://github.com/iirose-plugins/iirose-plugins-docs
 ```
 
-2. **进入文档目录**
+1. **进入文档目录**
 
 ```bash
 cd iirose-plugins-docs
 ```
 
-3. **安装依赖**
+1. **安装依赖**
 
 ```bash
 yarn install
 ```
 
-4. **打开vscode**
+1. **打开vscode**
 
 ```bash
 code .
 ```
 
-5. **启动开发服务器**
+1. **启动开发服务器**
 
 ```bash
 yarn dev
 ```
 
-6. **构建文档**
+1. **构建文档**
 
 ```bash
 yarn build

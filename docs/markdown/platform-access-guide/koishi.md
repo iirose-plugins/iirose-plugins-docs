@@ -16,14 +16,14 @@
 3. **风险警告：** 未认证的机器人账号会被认定为脚本发言，**可能导致封号**
 
 **注意事项：**
+
 - 机器人账号无法通过发言获得花钞奖励
 - 机器人发言不会计入房间热度
 :::
 
-
 ## 第一步：安装 Koishi 框架
 
-1. 访问 Koishi 官方安装指南：https://koishi.chat/zh-CN/manual/starter/windows.html
+1. 访问 Koishi 官方安装指南：<https://koishi.chat/zh-CN/manual/starter/windows.html>
 2. 下载并安装 Koishi
 
 :::tip 遇到问题？
@@ -31,7 +31,7 @@
 
 请前往 **Koishi 官方交流群** 寻求帮助 ->
 
-https://koishi.chat/zh-CN/about/contact.html
+<https://koishi.chat/zh-CN/about/contact.html>
 :::
 
 ## 第二步：启动 Koishi
@@ -40,7 +40,7 @@ https://koishi.chat/zh-CN/about/contact.html
 
 ![启动 Koishi](./../../public/assets/platform-access-guide/698dd082-9d58-45b2-aa7c-ed4241dd1d45.png)
 
-2. 启动后会看到 Koishi 控制台界面
+1. 启动后会看到 Koishi 控制台界面
 
 ![Koishi 控制台](./../../public/assets/platform-access-guide/0d576fa6-c5e4-4f5d-8466-04b87c805892.png)
 
@@ -48,19 +48,20 @@ https://koishi.chat/zh-CN/about/contact.html
 
 由于官方插件市场源可能存在访问问题，需要更新插件市场配置：
 
-
-:::warning 
+:::warning
 推荐使用以下镜像源：
+
 ```bash
 https://gitee.com/shangxueink/koishi-registry-aggregator/raw/gh-pages/market.json
 ```
+
 :::
 
-:::warning 
+:::warning
 在此步骤中，如果你使用`第三步`的下面图示步骤的镜像源 却无法访问插件市场，请尝试更换为上述的推荐镜像源 并重试此步骤。
 :::
 
-:::warning 
+:::warning
 完成此步骤后需要 **重启 Koishi**，以强制刷新插件市场
 :::
 
@@ -78,10 +79,8 @@ https://gitee.com/shangxueink/koishi-registry-aggregator/raw/gh-pages/market.jso
 
 ![安装 adapter-iirose](./../../public/assets/platform-access-guide/a415c368-0240-4f3f-9e5c-d311c46e0355.png)
 
-
 ## 第六步：添加 adapter-iirose
 
 ![添加 adapter-iirose](./../../public/assets/platform-access-guide/718e8da7-98f1-4927-b04f-a73e23f5a482.png)
 
 ![配置界面](./../../public/assets/platform-access-guide/ec25fd4b-2767-46ac-a7a8-2bb280a9d001.png)
-
